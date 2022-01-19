@@ -1,11 +1,11 @@
 require:
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-performance
 
 AllCops:
   NewCops: enable
   Exclude:
-    - 'db/**/*'
     - 'config/**/*'
     - 'bin/**/*'
     - 'node_modules/**/*'
@@ -16,11 +16,6 @@ AllCops:
     - 'Rakefile'
     - 'Gemfile.lock'
     - 'config.ru'
-
-Style/Documentation:
-  Enabled: false
-Style/FrozenStringLiteralComment:
-  Enabled: false
 
 inherit_from:
   - .rubocop_airbnb.yml
