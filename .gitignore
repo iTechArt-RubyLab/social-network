@@ -34,6 +34,7 @@
 /yarn-error.log
 /config/database.yml
 /config/storage.yml
+/config/cable.yml
 yarn-debug.log*
 .yarn-integrity
 .env
