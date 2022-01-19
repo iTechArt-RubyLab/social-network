@@ -1,12 +1,13 @@
 require:
  - rubocop-rails
+ - rubocop-rspec
 
 AllCops:
  NewCops: enable
  Exclude:
- - 'db//*'
- - 'config//*'
- - 'bin//*'
+ - 'db/**/*'
+ - 'config/**/*'
+ - 'bin/**/*'
  - 'spec/**/*'
  - 'node_modules/**/*'
  - 'tmp/**/*'
