@@ -1,24 +1,26 @@
 require:
- - rubocop-rails
- - rubocop-rspec
+  - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
- NewCops: enable
- Exclude:
- - 'db/**/*'
- - 'config/**/*'
- - 'bin/**/*'
- - 'spec/**/*'
- - 'node_modules/**/*'
- - 'tmp/**/*'
- - 'vendor/**/*'
- - '.git/**/*'
- - 'Gemfile'
- - 'Rakefile'
- - 'Gemfile.lock'
- - 'config.ru'
+  NewCops: enable
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'Gemfile.lock'
+    - 'config.ru'
 
 Style/Documentation:
- Enabled: false
+  Enabled: false
 Style/FrozenStringLiteralComment:
- Enabled: false
+  Enabled: false
+
+inherit_from:
+  - .rubocop_airbnb.yml
