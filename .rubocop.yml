@@ -1,12 +1,19 @@
+require:
+ - rubocop-rails
+
 AllCops:
  NewCops: enable
  Exclude:
  - 'db//*'
  - 'config//*'
- - 'script//*'
  - 'bin//*'
- - 'test/**/*'
+ - 'spec/**/*'
+ - 'node_modules/**/*'
+ - 'tmp/**/*'
+ - 'vendor/**/*'
+ - '.git/**/*'
  - 'Gemfile'
+ - 'Rakefile'
  - 'Gemfile.lock'
  - 'config.ru'
 
