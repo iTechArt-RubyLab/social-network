@@ -28,13 +28,16 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-
+  gem 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
+  gem 'faker', '~> 2.19'
   gem 'rspec-rails', '~> 5.0.0'
 
   gem 'dotenv-rails'
 end
 
 group :development do
+  # Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema
+  gem 'annotate', '~> 3.1', '>= 3.1.1'
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
