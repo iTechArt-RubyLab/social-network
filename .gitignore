@@ -28,6 +28,10 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# Ignore specific rake tasks.
+/lib/tasks/auto_annotate_models.rake
+/lib/tasks/auto_generate_diagram.rake
+
 /public/packs
 /public/packs-test
 /node_modules
@@ -35,6 +39,8 @@
 /config/database.yml
 /config/storage.yml
 /config/cable.yml
+/lib/tasks
 yarn-debug.log*
 .yarn-integrity
 .env
+erd.pdf
