@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2022_01_25_102311) do
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
-  
+
   create_table "messages", force: :cascade do |t|
     t.text "text", null: false
     t.bigint "user_id", null: false
@@ -94,6 +94,20 @@ ActiveRecord::Schema.define(version: 2022_01_25_102311) do
     t.index ["profile_id", "tag_id"], name: "index_user_interests_on_profile_id_and_tag_id", unique: true
     t.index ["profile_id"], name: "index_user_interests_on_profile_id"
     t.index ["tag_id"], name: "index_user_interests_on_tag_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "surname", null: false
+    t.string "name", null: false
+    t.string "patronymic"
+    t.date "birthday", null: false
+    t.string "email", null: false
+    t.string "phone"
+    t.text "about"
+    t.boolean "hidden", default: false, null: false
+    t.boolean "verified", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
