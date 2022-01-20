@@ -5,6 +5,8 @@ require:
 
 AllCops:
   NewCops: enable
+  Include:
+    - rubocop-rails
   Exclude:
     - 'config/**/*'
     - 'bin/**/*'
