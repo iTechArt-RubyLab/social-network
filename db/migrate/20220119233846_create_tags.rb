@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Migration create Tag table in database.
+# Migration create tags table in database.
 class CreateTags < ActiveRecord::Migration[6.1]
   def change
     create_table :tags do |t|
