@@ -14,4 +14,6 @@
 #  index_user_interests_on_tag_id      (tag_id)
 #
 class UserInterest < ApplicationRecord
+  belongs_to :profile
+  belongs_to :tag
 end
