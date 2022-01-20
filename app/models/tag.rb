@@ -12,4 +12,5 @@
 #  index_tags_on_name  (name) UNIQUE
 #
 class Tag < ApplicationRecord
+  validates :name, presence: true
 end
