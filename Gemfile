@@ -35,6 +35,10 @@ group :development, :test do
 end
 
 group :development do
+  # Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema
+  gem 'annotate', '~> 3.1', '>= 3.1.1'
+  # Generate an entity-relationship diagram (ERD) for Rails models
+  gem 'rails-erd', '~> 1.6', '>= 1.6.1'
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
