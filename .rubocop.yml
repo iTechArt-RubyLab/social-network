@@ -9,6 +9,7 @@ AllCops:
     - 'node_modules/**/*'
     - 'tmp/**/*'
     - 'lib/**/*'
+    - 'db/schema.rb'
     - 'vendor/**/*'
     - '.git/**/*'
     - 'Gemfile'
@@ -18,3 +19,8 @@ AllCops:
 
 inherit_from:
   - .rubocop_airbnb.yml
+
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
