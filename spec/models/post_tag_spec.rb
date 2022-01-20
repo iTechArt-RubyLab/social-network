@@ -14,7 +14,7 @@
 #  index_post_tags_on_post_id_and_tag_id  (post_id,tag_id) UNIQUE
 #  index_post_tags_on_tag_id              (tag_id)
 #
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PostTag, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
