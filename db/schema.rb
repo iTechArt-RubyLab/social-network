@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_20_121501) do
+ActiveRecord::Schema.define(version: 2022_01_20_121938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_121501) do
     t.bigint "tag_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["profile_id", "tag_id"], name: "index_user_interests_on_profile_id_and_tag_id", unique: true
     t.index ["profile_id"], name: "index_user_interests_on_profile_id"
     t.index ["tag_id"], name: "index_user_interests_on_tag_id"
   end

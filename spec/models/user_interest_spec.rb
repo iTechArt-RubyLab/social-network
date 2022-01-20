@@ -10,8 +10,9 @@
 #
 # Indexes
 #
-#  index_user_interests_on_profile_id  (profile_id)
-#  index_user_interests_on_tag_id      (tag_id)
+#  index_user_interests_on_profile_id             (profile_id)
+#  index_user_interests_on_profile_id_and_tag_id  (profile_id,tag_id) UNIQUE
+#  index_user_interests_on_tag_id                 (tag_id)
 #
 require 'rails_helper'
 
