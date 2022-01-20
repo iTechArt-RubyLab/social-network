@@ -41,5 +41,4 @@ ActiveRecord::Schema.define(version: 2022_01_20_121938) do
     t.index ["profile_id"], name: "index_user_interests_on_profile_id"
     t.index ["tag_id"], name: "index_user_interests_on_tag_id"
   end
-
 end
