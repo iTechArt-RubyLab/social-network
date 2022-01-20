@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require "faker"
+
+GENERATE_TAGS_COUNT = 30
+
+ActiveRecord::Base.transaction do
+  TEST_TAGS_COUNT.times do |_counter|
+    Tag.create(name: Faker::Hobby.unique.activity)
+  end
+end
