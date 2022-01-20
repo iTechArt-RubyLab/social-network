@@ -10,8 +10,9 @@
 #
 # Indexes
 #
-#  index_post_tags_on_post_id  (post_id)
-#  index_post_tags_on_tag_id   (tag_id)
+#  index_post_tags_on_post_id             (post_id)
+#  index_post_tags_on_post_id_and_tag_id  (post_id,tag_id) UNIQUE
+#  index_post_tags_on_tag_id              (tag_id)
 #
 require 'rails_helper'
 
