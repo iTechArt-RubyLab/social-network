@@ -45,7 +45,7 @@ group :development do
   # A collection of RuboCop cops to check for performance optimizations
   gem 'rubocop-performance', '~> 1.10.2', require: false
   # Automatic Rails code style checking tool
-  gem 'rubocop-rails', '~> 2.9.1', require: false
+  gem 'rubocop-rails', '~> 2.9.1'
   # Code style checking for RSpec files
   gem 'rubocop-rspec', '~> 1.44.1', require: false
 end
