@@ -14,7 +14,7 @@
 require "rails_helper"
 
 RSpec.describe Tag, type: :model do
-  subject { Tag.new(name: "Example tag name") }
+  subject { create(:tag) }
 
   before { subject.save }
 
