@@ -7,11 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 require "faker"
+require "factory_bot_rails"
 
 GENERATE_TAGS_COUNT = 30
 
 ActiveRecord::Base.transaction do
-  TEST_TAGS_COUNT.times do |_counter|
-    Tag.create(name: Faker::Hobby.unique.activity)
+  GENERATE_TAGS_COUNT.times do |_counter|
+    FactoryBot.create(:tag)
   end
 end
