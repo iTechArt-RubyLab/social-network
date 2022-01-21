@@ -121,6 +121,13 @@ ActiveRecord::Schema.define(version: 2022_01_25_102311) do
     t.index ["profile_id"], name: "index_users_on_profile_id", unique: true
     t.check_constraint "status = ANY (ARRAY[0, 1])", name: "check_user_status"
   end
+  create_table "posts", force: :cascade do |t|
+    t.text "body", null: false
+    t.integer "status", default: 1, null: false
+    t.integer "likes", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
