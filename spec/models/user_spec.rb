@@ -21,7 +21,9 @@ RSpec.describe User, type: :model do
     it 'is not saved' do
       expect do
         user.save!
+        # rubocop:disable Layout/LineLength
       end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Status can't be blank, Status is not included in the list")
+      # rubocop:enable Layout/LineLength
     end
   end
 
