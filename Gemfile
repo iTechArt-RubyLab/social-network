@@ -39,6 +39,16 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # Ruby code style checking and code formatting tool
+  gem 'rubocop', '~> 0.93.1', require: false
+  # Includes Rubocop configuration used at Airbnb and a few custom rules
+  gem 'rubocop-airbnb', '~> 4.0', require: false
+  # A collection of RuboCop cops to check for performance optimizations
+  gem 'rubocop-performance', '~> 1.10.2', require: false
+  # Automatic Rails code style checking tool
+  gem 'rubocop-rails', '~> 2.9.1'
+  # Code style checking for RSpec files
+  gem 'rubocop-rspec', '~> 1.44.1', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

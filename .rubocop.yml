@@ -1,0 +1,21 @@
+require:
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'lib/**/*'
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+    - '.git/**/*'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'Gemfile.lock'
+    - 'config.ru'
+
+inherit_from:
+  - .rubocop_airbnb.yml
