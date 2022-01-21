@@ -39,6 +39,7 @@
 /config/database.yml
 /config/storage.yml
 /config/cable.yml
+/config/credentials.yml.enc
 yarn-debug.log*
 .yarn-integrity
 .env
