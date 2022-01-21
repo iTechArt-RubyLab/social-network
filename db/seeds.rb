@@ -10,8 +10,4 @@ require "factory_bot_rails"
 
 GENERATE_TAGS_COUNT = 30
 
-ActiveRecord::Base.transaction do
-  GENERATE_TAGS_COUNT.times do |_counter|
-    FactoryBot.create(:tag)
-  end
-end
+FactoryBot.create_list(:tag, GENERATE_TAGS_COUNT)
