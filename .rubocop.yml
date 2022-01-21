@@ -20,5 +20,8 @@ AllCops:
     - 'Gemfile.lock'
     - 'config.ru'
 
+Rails/EnumHash:
+ Enabled: false
+
 inherit_from:
   - .rubocop_airbnb.yml
