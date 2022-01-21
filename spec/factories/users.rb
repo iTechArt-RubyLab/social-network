@@ -6,4 +6,10 @@ FactoryBot.define do
     net_state { Time.now }
     profile_id { rand(1000) }
   end
+
+  factory :blocked_user do
+    status { 'blocked' }
+    net_state { Time.now }
+    profile_id { rand(1000) }
+  end
 end
