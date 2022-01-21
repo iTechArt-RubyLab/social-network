@@ -1,6 +1,9 @@
 require:
   - rubocop-rspec
-
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-airbnb
+  
 AllCops:
   NewCops: enable
   Exclude:
