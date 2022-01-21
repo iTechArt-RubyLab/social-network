@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: posts
@@ -14,10 +16,14 @@
 #  index_posts_on_user_id  (user_id)
 #
 FactoryBot.define do
-  factory :post, class: Post do
+  factory :post, class: 'Post' do
     association :user
     body { Faker::Lorem.characters(number: 10, min_alpha: 10) }
-    status { Faker::Number.within(range: 0..1) }
+    status { 'public' }
+
+    trait :private_post do
+      status { 'private' }
+    end
 
     trait :invalid_body do
       body { Faker::Lorem.paragraph_by_chars(number: 1001, supplemental: false) }

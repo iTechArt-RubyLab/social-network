@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: posts
@@ -14,9 +16,9 @@
 #  index_posts_on_user_id  (user_id)
 #
 class Post < ApplicationRecord
-  belongs_to :user, optional: true
+  belongs_to :user
   has_one :picture, as: :picturable
-  has_many :likes
+  has_many :likes, as: :likeable
   has_many :post_tags
   has_many :tags, through: :post_tags
 

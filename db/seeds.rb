@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'factory_bot_rails'
 
 # This file should contain all the record creation needed to seed the database with-

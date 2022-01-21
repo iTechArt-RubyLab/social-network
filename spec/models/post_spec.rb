@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: posts
@@ -16,19 +18,41 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-
   context 'with valid attributes' do
-  let(:post) { FactoryBot.create :post}
+    let(:post) { FactoryBot.create :post }
+    let(:private_post) { FactoryBot.build :post, :private_post }
+
+    it { expect(private_post).to be_valid }
     it { expect(post).to be_valid }
   end
 
   context 'with invalid attributes' do
     let(:post) { FactoryBot.build :post, :invalid_body }
+
     it { expect(post).not_to be_valid }
+  end
+
+  context 'with user associations' do
+    let(:post) { FactoryBot.create :post }
+
+    it { is_expected.to belong_to(:user) }
+  end
+
+  context 'with picture associations' do
+    let(:post) { FactoryBot.create :post }
+
+    it { is_expected.to have_one(:picture) }
+  end
+
+  context 'with like associations' do
+    let(:post) { FactoryBot.create :post }
+
+    it { is_expected.to have_many(:likes) }
   end
 
   context 'with empty attributes' do
     let(:post) { FactoryBot.build :post, :empty }
+
     it { expect(post).not_to be_valid }
   end
 end
