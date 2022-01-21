@@ -20,5 +20,5 @@ class User < ApplicationRecord
   validates :net_state, presence: true
   validates :profile_id, presence: true, uniqueness: true
 
-  enum status: %i[active blocked]
+  enum status: { active: 0, blocked: 1 }
 end
