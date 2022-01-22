@@ -1,11 +1,11 @@
 FactoryBot.define do
-  factory :picture, class: Picture do
+  factory :picture, class: 'Picture' do
     trait :invalid do
-      picture { Rack::Test::UploadedFile.new("#{::Rails.root}/1.jpg") }
+      images { Rack::Test::UploadedFile.new("#{::Rails.root}/spec/support/assets/1.jpg") }
     end
 
     trait :empty do
-      picture { nil }
+      images { nil }
     end
   end
 end
