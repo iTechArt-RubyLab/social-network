@@ -20,13 +20,13 @@ RSpec.describe Picture, type: :model do
   context 'with post associations' do
     let(:posts) { FactoryBot.create :picture, :posts }
 
-    it { should belong_to(:likable) }
+    it { is_expected.to belong_to(:likable) }
   end
 
   context 'with profile associations' do
     let(:profiles) { FactoryBot.create :picture, :profiles }
 
-    it { should belong_to(:likable) }
+    it { is_expected.to belong_to(:likable) }
   end
 
   context 'with empty image attributes' do
