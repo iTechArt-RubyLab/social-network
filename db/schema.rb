@@ -25,20 +25,13 @@ ActiveRecord::Schema.define(version: 2022_01_20_122409) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.bigint "user_id"
-    t.text "body", null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.integer "status", default: 0, null: false
     t.datetime "net_state", null: false
+    t.integer "profile_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["profile_id"], name: "index_users_on_profile_id", unique: true
     t.check_constraint "status = ANY (ARRAY[0, 1])", name: "check_user_status"
   end
 

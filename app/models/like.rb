@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: likes
@@ -15,6 +17,6 @@
 #  index_likes_on_user_id  (user_id)
 #
 class Like < ApplicationRecord
-    belongs_to :likable, polymorphic: true
-    belongs_to :user
+  belongs_to :likable, polymorphic: true
+  belongs_to :user
 end
