@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# CreateUser migration
 class CreatePictures < ActiveRecord::Migration[6.1]
   def change
     create_table :pictures do |t|
