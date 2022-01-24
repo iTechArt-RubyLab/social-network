@@ -5,13 +5,15 @@ class CreateProfiles < ActiveRecord::Migration[6.1]
       t.string :name, null: false
       t.string :patronymic
       t.date :birthday, null: false
-      t.string :email, unique: true, null: false
-      t.string :phone, unique: true
+      t.string :email, null: false
+      t.string :phone, :limit => 15
       t.text :about
       t.boolean :hidden, null: false, default: false
       t.boolean :verified, null: false, default: false
 
       t.timestamps
     end
+    add_index :profiles, :email, unique: true
+    add_index :profiles, :phone, unique: true
   end
 end
