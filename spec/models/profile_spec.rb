@@ -51,18 +51,21 @@ RSpec.describe Profile, type: :model do
         profile.about = nil
         expect(profile.save).to eq(false)
       end
+      
       it 'saves successfully' do
         expect(profile.save).to eq(true)
       end
     end
+
   end
 
   describe 'phone limit test' do
     context 'when phone limit not more than 15 digits' do
-      it 'ensures phone limit <= 15 ' do
+      it 'ensures phone limit <= 15' do
         expect(profile.phone.size <= 15).to eq(true)
       end
-      it 'return error ' do
+
+      it 'return error' do
         profile.phone = '1234567890123456'
         expect(profile.save).to eq(false)
       end
