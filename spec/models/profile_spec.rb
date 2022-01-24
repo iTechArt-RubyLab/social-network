@@ -26,37 +26,41 @@ RSpec.describe Profile, type: :model do
   subject(:profile) { FactoryBot.build(:profile) }
 
   describe 'validation tests' do
-    context 'when we have required fields to fill in ' do
+    context 'when we have required fields to fill in' do
       it 'ensures surname presecence' do
         profile.surname = nil
         expect(profile.save).to eq(false)
       end
+      
       it 'ensures name presecence' do
         profile.name = nil
         expect(profile.save).to eq(false)
       end
+
       it 'ensures birthday presecence' do
         profile.birthday = nil
         expect(profile.save).to eq(false)
       end
+
       it 'ensures email presecence' do
         profile.email = nil
         expect(profile.save).to eq(false)
       end
+
       it 'ensures phone presecence' do
         profile.phone = nil
         expect(profile.save).to eq(false)
       end
+
       it 'ensures about presecence' do
         profile.about = nil
         expect(profile.save).to eq(false)
       end
-      
+
       it 'saves successfully' do
         expect(profile.save).to eq(true)
       end
     end
-
   end
 
   describe 'phone limit test' do
