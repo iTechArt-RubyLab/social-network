@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_20_092504) do
+ActiveRecord::Schema.define(version: 2022_01_24_063218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "messages", force: :cascade do |t|
+    t.text "text", null: false
+    t.string "messageable_type"
+    t.bigint "messageable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -25,4 +36,5 @@ ActiveRecord::Schema.define(version: 2022_01_20_092504) do
     t.check_constraint "status = ANY (ARRAY[0, 1])", name: "check_user_status"
   end
 
+  add_foreign_key "messages", "users"
 end
