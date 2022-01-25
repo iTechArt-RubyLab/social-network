@@ -16,7 +16,7 @@
 #  index_users_on_profile_id  (profile_id) UNIQUE
 #
 class User < ApplicationRecord
-  validates :status, presence: true, inclusion: { in: %w(active blocked) }
+  validates :status, presence: true, inclusion: { in: %w[active blocked] }
   validates :net_state, presence: true
   validates :profile_id, presence: true, uniqueness: true
 
