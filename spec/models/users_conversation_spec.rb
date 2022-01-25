@@ -25,7 +25,7 @@ require 'rails_helper'
 RSpec.describe UsersConversation, type: :model do
   let(:conversation) { FactoryBot.build(:conversation) }
   let(:user) { FactoryBot.build(:user) }
-  subject(:users_conversation) { FactoryBot.create(:users_conversation, conversation: conversation, user: user) }
+  let(:users_conversation) { FactoryBot.create(:users_conversation, conversation: conversation, user: user) }
 
   describe 'validation test' do
     context 'with valid associations' do
