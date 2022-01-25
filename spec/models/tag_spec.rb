@@ -19,6 +19,6 @@ RSpec.describe Tag, type: :model do
   let(:tag) { create(:tag) }
 
   it 'name should be present' do
-    expect(subject).to be_valid
+    expect(tag).to be_valid
   end
 end

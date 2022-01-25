@@ -22,10 +22,10 @@ RSpec.describe PostTag, type: :model do
   let(:post_tag) { create(:post_tag) }
 
   it 'tag must exist' do
-    Tag.find(expect(subject.tag_id)).exist
+    Tag.find(expect(post_tag.tag_id)).exist
   end
 
   it 'post must exist' do
-    Post.find(expect(subject.post_id)).exist
+    Post.find(expect(post_tag.post_id)).exist
   end
 end
