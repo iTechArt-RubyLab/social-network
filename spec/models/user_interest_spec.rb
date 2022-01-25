@@ -55,7 +55,7 @@ RSpec.describe UserInterest, type: :model do
     before { user_interest.update(profile_id: nil) }
 
     it 'is invalid' do
-      is_expected.not_to be_valid
+      expect(user_interests).not_to be_valid
     end
 
     it 'is not saved' do
@@ -68,7 +68,7 @@ RSpec.describe UserInterest, type: :model do
     before { user_interest.update(tag_id: nil) }
 
     it 'is invalid' do
-      is_expected.not_to be_valid
+      expect(user_interests).not_to be_valid
     end
 
     it 'is not saved' do

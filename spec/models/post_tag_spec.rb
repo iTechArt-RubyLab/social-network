@@ -55,7 +55,7 @@ RSpec.describe PostTag, type: :model do
     before { post_tag.update(tag_id: nil) }
 
     it 'is invalid' do
-      is_expected.not_to be_valid
+      expect(post_tag).not_to be_valid
     end
 
     it 'is not saved' do
@@ -68,7 +68,7 @@ RSpec.describe PostTag, type: :model do
     before { post_tag.update(post_id: nil) }
 
     it 'is invalid' do
-      is_expected.not_to be_valid
+      expect(post_tag).not_to be_valid
     end
 
     it 'is not saved' do
