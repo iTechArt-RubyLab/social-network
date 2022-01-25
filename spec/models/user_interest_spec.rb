@@ -33,6 +33,34 @@ RSpec.describe UserInterest, type: :model do
     end
   end
 
-  it { expect(tag.profile).to eq(profile) }
-  it { expect(profile.tag).to eq(tag) }
+  context 'with connected assotiations' do
+    it { expect(tag.profile).to eq(profile) }
+    it { expect(profile.tag).to eq(tag) }
+  end 
+
+  context 'without profile' do
+    before {user_interest.update(profile_id: nil)}
+
+    it 'is invalid' do
+      is_expected.not_to be_valid
+    end
+
+    it 'is not saved' do
+      expect { user_interest.save! }.to
+      raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+    end
+  end
+
+  context 'without tag' do
+    before { user_interest.update(tag_id: nil) }
+
+    it 'is invalid' do
+      is_expected.not_to be_valid
+    end
+
+    it 'is not saved' do
+      expect { user_interest.save! }.to
+      raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+    end
+  end
 end

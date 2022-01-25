@@ -16,7 +16,7 @@
 require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
-  let(:tag) { create(:tag) }
+  let(:tag) { FactoryBot.create(:tag) }
 
   it { is_expected.to be_valid }
 end

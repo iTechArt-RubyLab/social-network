@@ -33,6 +33,34 @@ RSpec.describe PostTag, type: :model do
     end
   end
 
-  it { expect(tag.post).to eq(post) }
-  it { expect(post.tag).to eq(tag) }
+  context 'with connected associations' do
+    it { expect(tag.post).to eq(post) }
+    it { expect(post.tag).to eq(tag) }
+  end
+
+  context 'without post' do
+    before {post_tag.update(post_id: nil)}
+
+    it 'is invalid' do
+      is_expected.not_to be_valid
+    end
+
+    it 'is not saved' do
+      expect { post_tag.save! }.to
+      raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+    end
+  end
+
+  context 'without tag' do
+    before { post_tag.update(tag_id: nil) }
+
+    it 'is invalid' do
+      is_expected.not_to be_valid
+    end
+
+    it 'is not saved' do
+      expect { post_tags.save! }.to
+      raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+    end
+  end
 end
