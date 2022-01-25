@@ -24,7 +24,7 @@ RSpec.describe PostTag, type: :model do
   let(:post_tag) { FactoryBot.create(:post_tag, post: post, tag: tag) }
 
   describe 'tag' do
-    context 'when existing tag' do
+    context 'with existing tag' do
       it 'must exist' do
         expect(tag.post).to exist
       end
