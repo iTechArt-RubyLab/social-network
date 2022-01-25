@@ -3,9 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe UserInterest, type: :model do
-  let(:tag) { create(:tag) }
-
-  before { subject.save }
+  let(:user_interest) { create(:user_interest) }
 
   it 'profile must exist' do
     Profile.find(expect(subject.profile_id)).exist

@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe PostTag, type: :model do
-  let(:post_tag) { create(:post_tag, :tag) }
+  let(:post_tag) { create(:post_tag) }
 
   it 'tag must exist' do
     Tag.find(expect(subject.tag_id)).exist
