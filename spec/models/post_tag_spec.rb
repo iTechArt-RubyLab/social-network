@@ -25,11 +25,11 @@ RSpec.describe PostTag, type: :model do
 
   context 'with existing assotiations' do
     it 'tag must exist' do
-    expect(post.tag).to exist
+      expect(post.tag).to exist
     end
 
     it 'post must exist' do
-    expect(tag.post).to exist
+      expect(tag.post).to exist
     end
   end
 

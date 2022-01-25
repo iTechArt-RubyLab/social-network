@@ -20,3 +20,6 @@ AllCops:
 
 inherit_from:
   - .rubocop_airbnb.yml
+
+Style/PercentLiteralDelimiters:
+  Enabled: false

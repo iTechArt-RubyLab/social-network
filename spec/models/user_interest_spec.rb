@@ -25,11 +25,11 @@ RSpec.describe UserInterest, type: :model do
 
   context 'with existing assotiations' do
     it 'profile must exist' do
-    expect(profile.tag).to exist
+      expect(profile.tag).to exist
     end
 
     it 'tag must exist' do
-    expect(tag.profile).to exist
+      expect(tag.profile).to exist
     end
   end
 
