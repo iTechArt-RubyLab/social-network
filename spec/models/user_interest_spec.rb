@@ -36,10 +36,10 @@ RSpec.describe UserInterest, type: :model do
   context 'with connected assotiations' do
     it { expect(tag.profile).to eq(profile) }
     it { expect(profile.tag).to eq(tag) }
-  end 
+  end
 
   context 'without profile' do
-    before {user_interest.update(profile_id: nil)}
+    before { user_interest.update(profile_id: nil) }
 
     it 'is invalid' do
       is_expected.not_to be_valid

@@ -23,31 +23,31 @@ RSpec.describe PostTag, type: :model do
   let(:post) { FactoryBot.create(:post) }
   let(:post_tag) { FactoryBot.create(:post_tag, post: post, tag: tag) }
 
-  context 'with existing assotiations' do
-    it 'tag must exist' do
-      expect(post.tag).to exist
+  describe 'tag' do
+    context 'when existing tag' do
+      it 'must exist' do
+        expect(tag.post).to exist
+      end
     end
 
-    it 'post must exist' do
-      expect(tag.post).to exist
+    context 'with connected tag' do
+      it 'must be with correct value' do
+         expect(tag.post).to eq(post)
+      end
     end
   end
 
-  context 'with connected associations' do
-    it { expect(tag.post).to eq(post) }
-    it { expect(post.tag).to eq(tag) }
-  end
-
-  context 'without post' do
-    before {post_tag.update(post_id: nil)}
-
-    it 'is invalid' do
-      is_expected.not_to be_valid
+  describe 'post' do
+    context 'with existing post' do
+      it 'must exist' do
+        expect(post.tag).to exist
+      end
     end
 
-    it 'is not saved' do
-      expect { post_tag.save! }.to
-      raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+    context 'with connected post' do
+      it 'must be with correct value' do
+         expect(post.tag).to eq(tag)
+      end
     end
   end
 
@@ -59,7 +59,20 @@ RSpec.describe PostTag, type: :model do
     end
 
     it 'is not saved' do
-      expect { post_tags.save! }.to
+      expect { post_tags.save }.to
+      raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+    end
+  end
+
+  context 'without post' do
+    before { post_tag.update(post_id: nil) }
+
+    it 'is invalid' do
+      is_expected.not_to be_valid
+    end
+
+    it 'is not saved' do
+      expect { post_tag.save }.to
       raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
     end
   end
