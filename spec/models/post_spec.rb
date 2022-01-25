@@ -50,10 +50,8 @@ RSpec.describe Post, type: :model do
     it { is_expected.to have_many(:likes) }
   end
 
-  context 'with empty attributes' do
+  context 'without body' do
     let(:body) { FactoryBot.build :post, :empty_body }
-    let(:status) { FactoryBot.build :post, :empty_status }
-    let(:user) { FactoryBot.build :post, :empty_user }
 
     it 'empty body' do
       expect do
@@ -62,17 +60,25 @@ RSpec.describe Post, type: :model do
       end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Body can't be blank, Body is too short (minimum is 2 characters)")
       # rubocop:enable Layout/LineLength
     end
+  end
 
-    it 'empty user association' do
-      expect do
-        user.save!
-      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: User must exist')
-    end
+  context 'without status' do
+    let(:status) { FactoryBot.build :post, :empty_status }
 
-    it 'empty status' do
+    it 'is invalid' do
       expect do
         status.save!
       end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Status can't be blank")
+    end
+  end
+
+  context 'without user association' do
+    let(:user) { FactoryBot.build :post, :empty_user }
+
+    it 'is invalid' do
+      expect do
+        user.save!
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: User must exist')
     end
   end
 end
