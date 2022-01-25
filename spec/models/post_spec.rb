@@ -51,8 +51,25 @@ RSpec.describe Post, type: :model do
   end
 
   context 'with empty attributes' do
-    let(:post) { FactoryBot.build :post, :empty }
+    let(:body) { FactoryBot.build :post, :empty_body }
+    let(:status) { FactoryBot.build :post, :empty_status }
+    let(:user) { FactoryBot.build :post, :empty_user }
 
-    it { expect(post).not_to be_valid }
+    it 'empty body' do
+      expect do
+        body.save!
+      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Body can't be blank, " \
+        "Body is too short (minimum is 2 characters)")
+    end
+    it 'empty user association' do
+      expect do
+        user.save!
+      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: User must exist")
+    end
+    it 'empty status' do
+      expect do
+        status.save!
+      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Status can't be blank")
+    end
   end
 end

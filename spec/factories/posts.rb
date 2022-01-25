@@ -29,10 +29,16 @@ FactoryBot.define do
       body { Faker::Lorem.paragraph_by_chars(number: 1001, supplemental: false) }
     end
 
-    trait :empty do
-      user { nil }
+    trait :empty_body do
       body { nil }
+    end
+
+    trait :empty_status do
       status { nil }
+    end
+    
+    trait :empty_user do
+      user { nil }
     end
   end
 end
