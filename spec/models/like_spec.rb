@@ -4,17 +4,17 @@
 #
 # Table name: likes
 #
-#  id           :bigint           not null, primary key
-#  likable_type :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  likable_id   :bigint
-#  user_id      :bigint
+#  id            :bigint           not null, primary key
+#  likeable_type :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  likeable_id   :bigint
+#  user_id       :bigint
 #
 # Indexes
 #
-#  index_likes_on_likable  (likable_type,likable_id)
-#  index_likes_on_user_id  (user_id)
+#  index_likes_on_likeable  (likeable_type,likeable_id)
+#  index_likes_on_user_id   (user_id)
 #
 require 'rails_helper'
 
@@ -23,6 +23,6 @@ RSpec.describe Like, type: :model do
     let(:like) { FactoryBot.create :like }
 
     it { is_expected.to belong_to(:user) }
-    it { is_expected.to belong_to(:likable) }
+    it { is_expected.to belong_to(:likeable) }
   end
 end
