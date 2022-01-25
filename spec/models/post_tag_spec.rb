@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: post_tags
@@ -17,15 +19,13 @@
 require 'rails_helper'
 
 RSpec.describe PostTag, type: :model do
-  subject { create(:post_tag) }
+  let(:post_tag) { create(:post_tag, :tag) }
 
-  before { subject.save }
-
-  it "tag must exist" do
+  it 'tag must exist' do
     Tag.find(expect(subject.tag_id)).exist
   end
 
-  it "post must exist" do
+  it 'post must exist' do
     Post.find(expect(subject.post_id)).exist
   end
 end

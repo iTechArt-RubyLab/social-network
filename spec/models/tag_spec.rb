@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: tags
@@ -14,11 +16,9 @@
 require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
-  subject { create(:tag) }
+  let(:tag) { create(:tag) }
 
-  before { subject.save }
-
-  it "name should be present" do
+  it 'name should be present' do
     expect(subject).to be_valid
   end
 end
