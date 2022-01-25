@@ -17,16 +17,18 @@
 #
 class Post < ApplicationRecord
   belongs_to :user
-  has_one :picture, as: :picturable
+  has_many :pictures, as: :picturable
   has_many :likes, as: :likeable
   has_many :post_tags
   has_many :tags, through: :post_tags
 
   enum status: %i[public private], _suffix: true
 
-  MIN_CHARACTERS = 2
-  MAX_CHARACTERS = 280
+  VALIDATE_MIN_CHARACTERS_BODY = 2
+  VALIDATE_MAX_CHARACTERS_BODY = 280
 
   validates :status, presence: true
-  validates :body, presence: true, length: { in: MIN_CHARACTERS..MAX_CHARACTERS }
+  # rubocop:disable Layout/LineLength
+  validates :body, presence: true, length: { in: VALIDATE_MIN_CHARACTERS_BODY..VALIDATE_MAX_CHARACTERS_BODY }
+  # rubocop:enable Layout/LineLength
 end

@@ -21,23 +21,19 @@ FactoryBot.define do
     body { Faker::Lorem.characters(number: 10, min_alpha: 10) }
     status { 'public' }
 
-    trait :private_post do
+    trait :private do
       status { 'private' }
     end
 
-    trait :invalid_body do
-      body { Faker::Lorem.paragraph_by_chars(number: 1001, supplemental: false) }
-    end
-
-    trait :empty_body do
+    trait :with_empty_body do
       body { nil }
     end
 
-    trait :empty_status do
+    trait :with_empty_status do
       status { nil }
     end
 
-    trait :empty_user do
+    trait :with_empty_user do
       user { nil }
     end
   end

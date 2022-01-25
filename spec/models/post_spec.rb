@@ -18,66 +18,45 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  context 'with valid attributes' do
+  context 'when everything is valid' do
     let(:post) { FactoryBot.create :post }
-    let(:private_post) { FactoryBot.build :post, :private_post }
+    let(:private) { FactoryBot.build :post, :private }
 
-    it { expect(private_post).to be_valid }
-    it { expect(post).to be_valid }
+    it 'is expected to be private post' do expect(private).to be_valid end
+    it 'is expected to be public post' do expect(post).to be_valid end
+    it { expect(post).to have_many(:likes) }
+    it { expect(post).to have_many(:pictures) }
+    it { expect(post).to belong_to(:user) }
   end
 
-  context 'with invalid attributes' do
-    let(:post) { FactoryBot.build :post, :invalid_body }
+  context 'when status is empty' do
+    let(:post_with_empty_body) { FactoryBot.build :post, :with_empty_body }
 
-    it { expect(post).not_to be_valid }
-  end
-
-  context 'with user associations' do
-    let(:post) { FactoryBot.create :post }
-
-    it { is_expected.to belong_to(:user) }
-  end
-
-  context 'with picture associations' do
-    let(:post) { FactoryBot.create :post }
-
-    it { is_expected.to have_one(:picture) }
-  end
-
-  context 'with like associations' do
-    let(:post) { FactoryBot.create :post }
-
-    it { is_expected.to have_many(:likes) }
-  end
-
-  context 'without body' do
-    let(:body) { FactoryBot.build :post, :empty_body }
-
-    it 'empty body' do
+    it 'cannot be created' do
       expect do
-        body.save!
+        post_with_empty_body.save!
         # rubocop:disable Layout/LineLength
       end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Body can't be blank, Body is too short (minimum is 2 characters)")
       # rubocop:enable Layout/LineLength
     end
   end
 
-  context 'without status' do
-    let(:status) { FactoryBot.build :post, :empty_status }
+  context 'when status is empty' do
+    let(:post_with_empty_status) { FactoryBot.build :post, :with_empty_status }
 
-    it 'is invalid' do
+    it 'cannot be created' do
       expect do
-        status.save!
+        post_with_empty_status.save!
       end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Status can't be blank")
     end
   end
 
-  context 'without user association' do
-    let(:user) { FactoryBot.build :post, :empty_user }
+  context 'when user is empty' do
+    let(:post_with_empty_user) { FactoryBot.build :post, :with_empty_user }
 
-    it 'is invalid' do
+    it 'cannot be created' do
       expect do
-        user.save!
+        post_with_empty_user.save!
       end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: User must exist')
     end
   end
