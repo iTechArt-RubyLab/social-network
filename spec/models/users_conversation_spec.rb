@@ -23,10 +23,8 @@
 require 'rails_helper'
 
 RSpec.describe UsersConversation, type: :model do
-  subject(:conversation) { FactoryBot.build(:conversation) }
-
-  subject(:user) { FactoryBot.build(:user) }
-
+  let(:conversation) { FactoryBot.build(:conversation) }
+  let(:user) { FactoryBot.build(:user) }
   subject(:users_conversation) { FactoryBot.create(:users_conversation, conversation: conversation, user: user) }
 
   describe 'validation test' do
