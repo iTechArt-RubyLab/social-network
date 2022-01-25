@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(version: 2022_01_24_063218) do
     t.text "text", null: false
     t.string "messageable_type", null: false
     t.bigint "messageable_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id"
     t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end

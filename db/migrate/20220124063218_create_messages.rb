@@ -6,9 +6,10 @@ class CreateMessages < ActiveRecord::Migration[6.1]
     create_table :messages do |t|
       t.text :text, null: false
       t.references :messageable, polymorphic: true, null: false
+      t.references :user, null: false, foreign_key: true
       t.timestamps null: false
     end
 
-    add_reference :messages, :user, foreign_key: true
+    # add_reference :messages, :user, foreign_key: true
   end
 end
