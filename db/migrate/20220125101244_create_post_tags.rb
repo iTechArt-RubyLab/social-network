@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration create post tags table in database.
 class CreatePostTags < ActiveRecord::Migration[6.1]
   def change
     create_table :post_tags do |t|
