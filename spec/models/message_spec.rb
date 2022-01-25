@@ -5,11 +5,11 @@
 # Table name: messages
 #
 #  id               :bigint           not null, primary key
-#  messageable_type :string
+#  messageable_type :string           not null
 #  text             :text             not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  messageable_id   :bigint
+#  messageable_id   :bigint           not null
 #  user_id          :bigint
 #
 # Indexes
