@@ -28,7 +28,5 @@ class Post < ApplicationRecord
   VALIDATE_MAX_CHARACTERS_BODY = 280
 
   validates :status, presence: true
-  # rubocop:disable Layout/LineLength
   validates :body, presence: true, length: { in: VALIDATE_MIN_CHARACTERS_BODY..VALIDATE_MAX_CHARACTERS_BODY }
-  # rubocop:enable Layout/LineLength
 end

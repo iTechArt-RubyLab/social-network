@@ -29,7 +29,7 @@ RSpec.describe Post, type: :model do
     it { expect(post).to belong_to(:user) }
   end
 
-  context 'when status is empty' do
+  context 'when body is empty' do
     let(:post_with_empty_body) { FactoryBot.build :post, :with_empty_body }
 
     it 'cannot be created' do
