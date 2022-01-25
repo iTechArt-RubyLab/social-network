@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users_conversations
@@ -22,9 +24,11 @@ require 'rails_helper'
 
 RSpec.describe UsersConversation, type: :model do
   subject(:conversation) { FactoryBot.build(:conversation) }
+
   subject(:user) { FactoryBot.build(:user) }
+
   subject(:users_conversation) { FactoryBot.create(:users_conversation, conversation: conversation, user: user) }
-  
+
   describe 'validation test' do
     context 'with valid associations' do
       it { is_expected.to belong_to(:user) }
