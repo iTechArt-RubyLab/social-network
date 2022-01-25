@@ -22,7 +22,7 @@ RSpec.describe Like, type: :model do
   context 'with valid associations' do
     let(:like) { FactoryBot.create :like }
 
-    it { should belong_to(:user) }
-    it { should belong_to(:likable) }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:likable) }
   end
 end
