@@ -12,7 +12,7 @@
 #
 FactoryBot.define do
   factory :message do
-    user_id { User.all[rand(0..(User.all.each.count - 1))].id }
+    association :user
     text { Faker::Lorem.paragraph }
     messageable_id { user_id }
     messageable_type { 'user' }
