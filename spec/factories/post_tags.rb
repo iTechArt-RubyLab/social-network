@@ -18,7 +18,7 @@
 #
 FactoryBot.define do
   factory :post_tag do
-    tag_id { Tag.all.sample.id }
-    post_id { Post.all.sample.id }
+    tag { create(:tag) }
+    post { create(:post)}
   end
 end
