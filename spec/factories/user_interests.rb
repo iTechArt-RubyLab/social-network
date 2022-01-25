@@ -18,7 +18,7 @@
 #
 FactoryBot.define do
   factory :user_interest do
-    profile { create(:profile) }
-    tag { create(:tag) }
+    associate: :profile
+    associate: :tag
   end
 end
