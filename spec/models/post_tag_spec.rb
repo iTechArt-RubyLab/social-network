@@ -17,5 +17,15 @@
 require 'rails_helper'
 
 RSpec.describe PostTag, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { create(:post_tag) }
+
+  before { subject.save }
+
+  it "tag must exist" do
+    Tag.find(expect(subject.tag_id)).exist
+  end
+
+  it "post must exist" do
+    Post.find(expect(subject.post_id)).exist
+  end
 end
