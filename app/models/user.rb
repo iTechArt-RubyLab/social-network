@@ -19,6 +19,7 @@ class User < ApplicationRecord
   validates :status, presence: true, inclusion: { in: %w[active blocked] }
   validates :net_state, presence: true
   validates :profile_id, presence: true, uniqueness: true
+  has_many :messages, as: :messageable
 
   enum status: { active: 0, blocked: 1 }
 end
