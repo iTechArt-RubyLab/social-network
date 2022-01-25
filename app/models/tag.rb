@@ -18,5 +18,5 @@ class Tag < ApplicationRecord
     has_many :user_interests
     has_many :profiles, through: :user_interests
 
-    validates :name, presence: true, uniqueness: true
+    validates_uniqueness_of :name, case_sensitive: false
 end
