@@ -25,8 +25,7 @@ FactoryBot.define do
   factory :message do
     association :user
     text { Faker::Lorem.paragraph }
-    messageable_id { user_id }
-    messageable_type { 'user' }
+    messageable { user }
 
     trait :without_user do
       user_id { nil }

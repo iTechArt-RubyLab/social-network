@@ -26,6 +26,6 @@ class Message < ApplicationRecord
   validates :text, presence: true
   validates :messageable_id, presence: true
   validates :messageable_type, presence: true
-
+  belongs_to :messageable, polymorphic: true
   belongs_to :user
 end
