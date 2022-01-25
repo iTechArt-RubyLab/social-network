@@ -32,7 +32,7 @@ RSpec.describe UserInterest, type: :model do
 
     context 'with connected profile' do
       it 'must be with correct value' do
-         expect(profile.tag).to eq(tag)
+        expect(profile.tag).to eq(tag)
       end
     end
   end
@@ -46,7 +46,7 @@ RSpec.describe UserInterest, type: :model do
 
     context 'with connected tag' do
       it 'must be with correct value' do
-         expect(tag.profile).to eq(profile)
+        expect(tag.profile).to eq(profile)
       end
     end
   end

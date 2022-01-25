@@ -32,7 +32,7 @@ RSpec.describe PostTag, type: :model do
 
     context 'with connected tag' do
       it 'must be with correct value' do
-         expect(tag.post).to eq(post)
+        expect(tag.post).to eq(post)
       end
     end
   end
@@ -46,7 +46,7 @@ RSpec.describe PostTag, type: :model do
 
     context 'with connected post' do
       it 'must be with correct value' do
-         expect(post.tag).to eq(tag)
+        expect(post.tag).to eq(tag)
       end
     end
   end
