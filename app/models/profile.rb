@@ -23,9 +23,9 @@
 #  index_profiles_on_phone  (phone) UNIQUE
 #
 class Profile < ApplicationRecord
-  # has_one_attached :photo
-  # belongs_to :user
-  # has_many :user_interests
+  has_one :picture, as: :picturable
+  belongs_to :user
+  has_many :user_interests
 
   validates :surname, presence: true
   validates :name, presence: true
