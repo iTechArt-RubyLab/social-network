@@ -10,30 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_20_122409) do
+ActiveRecord::Schema.define(version: 2022_01_23_184843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "likes", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "likable_type"
-    t.bigint "likable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["likable_type", "likable_id"], name: "index_likes_on_likable"
-    t.index ["user_id"], name: "index_likes_on_user_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.integer "status", default: 0, null: false
-    t.datetime "net_state", null: false
-    t.integer "profile_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["profile_id"], name: "index_users_on_profile_id", unique: true
-    t.check_constraint "status = ANY (ARRAY[0, 1])", name: "check_user_status"
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -63,6 +43,16 @@ ActiveRecord::Schema.define(version: 2022_01_20_122409) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "likable_type"
+    t.bigint "likable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["likable_type", "likable_id"], name: "index_likes_on_likable"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "pictures", force: :cascade do |t|
     t.string "picturable_type"
     t.bigint "picturable_id"
@@ -71,9 +61,14 @@ ActiveRecord::Schema.define(version: 2022_01_20_122409) do
     t.index ["picturable_type", "picturable_id"], name: "index_pictures_on_picturable"
   end
 
-  create_table "us", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.datetime "net_state", null: false
+    t.integer "profile_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["profile_id"], name: "index_users_on_profile_id", unique: true
+    t.check_constraint "status = ANY (ARRAY[0, 1])", name: "check_user_status"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
