@@ -17,13 +17,20 @@
 #
 require 'rails_helper'
 
+RSpec.shared_examples 'Post' do |parameter|
+  it "expects #{parameter.status} post to be valid" do
+    expect(parameter).to be_valid
+  end
+end
+
 RSpec.describe Post, type: :model do
   context 'when everything is valid' do
-    let(:post) { FactoryBot.create :post }
-    let(:private) { FactoryBot.build :post, :private }
+    post = FactoryBot.build :post
+    private = FactoryBot.build :post, :private
 
-    it 'is expected to be private post' do expect(private).to be_valid end
-    it 'is expected to be public post' do expect(post).to be_valid end
+    include_examples 'Post', post
+    include_examples 'Post', private
+
     it { expect(post).to have_many(:likes) }
     it { expect(post).to have_many(:pictures) }
     it { expect(post).to belong_to(:user) }

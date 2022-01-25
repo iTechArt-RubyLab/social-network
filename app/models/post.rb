@@ -24,9 +24,9 @@ class Post < ApplicationRecord
 
   enum status: %i[public private], _suffix: true
 
-  VALIDATE_MIN_CHARACTERS_BODY = 2
-  VALIDATE_MAX_CHARACTERS_BODY = 280
+  BODY_MIN_CHARACTERS = 2
+  BODY_MAX_CHARACTERS = 280
 
   validates :status, presence: true
-  validates :body, presence: true, length: { in: VALIDATE_MIN_CHARACTERS_BODY..VALIDATE_MAX_CHARACTERS_BODY }
+  validates :body, presence: true, length: { in: BODY_MIN_CHARACTERS..BODY_MAX_CHARACTERS }
 end
