@@ -19,6 +19,6 @@
 FactoryBot.define do
   factory :post_tag do
     tag { create(:tag) }
-    post { create(:post)}
+    post { create(:post) }
   end
 end

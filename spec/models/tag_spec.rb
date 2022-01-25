@@ -18,7 +18,5 @@ require 'rails_helper'
 RSpec.describe Tag, type: :model do
   let(:tag) { create(:tag) }
 
-  it 'name should be present' do
-    expect(tag).to be_valid
-  end
+  it { is_expected.to be_valid }
 end
