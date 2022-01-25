@@ -23,6 +23,7 @@ class User < ApplicationRecord
   validates :status, presence: true, inclusion: { in: %w[active blocked] }
   validates :net_state, presence: true
   validates :profile_id, presence: true, uniqueness: true
+
   enum status: { active: 0, blocked: 1 }
 
   has_many :user_subscriptions, class_name: 'UserSubscription', foreign_key: 'subscriber_id'

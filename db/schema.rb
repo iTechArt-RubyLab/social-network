@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_27_172240) do
+ActiveRecord::Schema.define(version: 2022_01_31_111128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,12 @@ ActiveRecord::Schema.define(version: 2022_01_27_172240) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "conversations", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "likes", force: :cascade do |t|
     t.bigint "user_id"
     t.string "likeable_type"
@@ -56,8 +62,10 @@ ActiveRecord::Schema.define(version: 2022_01_27_172240) do
   create_table "messages", force: :cascade do |t|
     t.text "text", null: false
     t.bigint "user_id", null: false
+    t.bigint "conversation_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -106,23 +114,21 @@ ActiveRecord::Schema.define(version: 2022_01_27_172240) do
     t.index ["phone"], name: "index_profiles_on_phone", unique: true
   end
 
-  create_table "subscriptions", force: :cascade do |t|
-    t.bigint "subscriber_id", null: false
-    t.bigint "signatory_id", null: false
-    t.boolean "status", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["signatory_id"], name: "index_subscriptions_on_signatory_id"
-    t.index ["subscriber_id", "signatory_id"], name: "index_subscriptions_on_subscriber_id_and_signatory_id", unique: true
-    t.index ["subscriber_id"], name: "index_subscriptions_on_subscriber_id"
-    t.check_constraint "subscriber_id <> signatory_id", name: "check_subscriber_and_signatory_equality"
-  end
-
   create_table "tags", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "user_conversations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "conversation_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_user_conversations_on_conversation_id"
+    t.index ["user_id", "conversation_id"], name: "index_user_conversations_on_user_id_and_conversation_id", unique: true
+    t.index ["user_id"], name: "index_user_conversations_on_user_id"
   end
 
   create_table "user_interests", force: :cascade do |t|
