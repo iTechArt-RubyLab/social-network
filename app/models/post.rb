@@ -27,6 +27,6 @@ class Post < ApplicationRecord
   MIN_CHARACTERS = 2
   MAX_CHARACTERS = 280
 
-  validates :status ,presence: true
-  validates :body,presence: true, length: { in: MIN_CHARACTERS..MAX_CHARACTERS }
+  validates :status, presence: true
+  validates :body, presence: true, length: { in: MIN_CHARACTERS..MAX_CHARACTERS }
 end

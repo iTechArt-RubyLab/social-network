@@ -36,7 +36,7 @@ FactoryBot.define do
     trait :empty_status do
       status { nil }
     end
-    
+
     trait :empty_user do
       user { nil }
     end

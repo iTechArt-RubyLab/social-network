@@ -58,14 +58,17 @@ RSpec.describe Post, type: :model do
     it 'empty body' do
       expect do
         body.save!
-      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Body can't be blank, " \
-        "Body is too short (minimum is 2 characters)")
+        # rubocop:disable Layout/LineLength
+      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Body can't be blank, Body is too short (minimum is 2 characters)")
+      # rubocop:enable Layout/LineLength
     end
+
     it 'empty user association' do
       expect do
         user.save!
-      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: User must exist")
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: User must exist')
     end
+
     it 'empty status' do
       expect do
         status.save!
