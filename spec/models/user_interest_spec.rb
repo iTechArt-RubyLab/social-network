@@ -19,13 +19,20 @@
 require 'rails_helper'
 
 RSpec.describe UserInterest, type: :model do
-  let(:user_interest) { create(:user_interest) }
+  let(:profile) { FactoryBot.create(:profile) }
+  let(:tag) { FactoryBot.create(:tag) }
+  let(:user_interest) { FactoryBot.create(:user_interest, profile: profile, tag: tag) }
 
-  it 'profile must exist' do
-    Profile.find(expect(user_interest.profile_id)).exist
+  context 'with existing assotiations' do
+    it 'profile must exist' do
+    expect(profile.tag).to exist
+    end
+
+    it 'tag must exist' do
+    expect(tag.profile).to exist
+    end
   end
 
-  it 'tag must exist' do
-    Tag.find(expect(user_interest.tag_id)).exist
-  end
+  it { expect(tag.profile).to eq(profile) }
+  it { expect(profile.tag).to eq(tag) }
 end

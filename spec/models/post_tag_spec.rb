@@ -20,12 +20,17 @@ require 'rails_helper'
 
 RSpec.describe PostTag, type: :model do
   let(:tag) { FactoryBot.create(:tag) }
-  let(:post) { FactoryBot.create(:tag) }
+  let(:post) { FactoryBot.create(:post) }
   let(:post_tag) { FactoryBot.create(:post_tag, post: post, tag: tag) }
 
-  it 'tag must exist' do
+  context 'with existing assotiations' do
+    it 'tag must exist' do
     expect(post.tag).to exist
+    end
+
+    it 'post must exist' do
     expect(tag.post).to exist
+    end
   end
 
   it { expect(tag.post).to eq(post) }
