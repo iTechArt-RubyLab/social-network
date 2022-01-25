@@ -33,7 +33,6 @@ RSpec.describe Profile, type: :model do
         profile.surname = nil
         expect(profile.save).to eq(false)
       end
-
       it 'ensures name presecence' do
         profile.name = nil
         expect(profile.save).to eq(false)
