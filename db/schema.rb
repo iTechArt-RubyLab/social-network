@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_25_102311) do
+ActiveRecord::Schema.define(version: 2022_01_26_163422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,16 @@ ActiveRecord::Schema.define(version: 2022_01_25_102311) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_profiles_on_email", unique: true
     t.index ["phone"], name: "index_profiles_on_phone", unique: true
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "subscriber_id_id", null: false
+    t.bigint "signatory_id_id", null: false
+    t.boolean "status", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["signatory_id_id"], name: "index_subscriptions_on_signatory_id_id"
+    t.index ["subscriber_id_id"], name: "index_subscriptions_on_subscriber_id_id"
   end
 
   create_table "tags", force: :cascade do |t|
