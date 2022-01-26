@@ -4,8 +4,8 @@
 class CreateSubscriptions < ActiveRecord::Migration[6.1]
   def change
     create_table :subscriptions do |t|
-      t.references :subscriber_id, null: false
-      t.references :signatory_id, null: false
+      t.references :subscriber, null: false
+      t.references :signatory, null: false
       t.boolean :status, null: false, default: false
 
       t.timestamps
