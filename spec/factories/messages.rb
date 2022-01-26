@@ -4,18 +4,15 @@
 #
 # Table name: messages
 #
-#  id               :bigint           not null, primary key
-#  messageable_type :string           not null
-#  text             :text             not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  messageable_id   :bigint           not null
-#  user_id          :bigint           not null
+#  id         :bigint           not null, primary key
+#  text       :text             not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :bigint           not null
 #
 # Indexes
 #
-#  index_messages_on_messageable  (messageable_type,messageable_id)
-#  index_messages_on_user_id      (user_id)
+#  index_messages_on_user_id  (user_id)
 #
 # Foreign Keys
 #
@@ -25,7 +22,6 @@ FactoryBot.define do
   factory :message do
     association :user
     text { Faker::Lorem.paragraph }
-    messageable { user }
 
     trait :without_user do
       user_id { nil }

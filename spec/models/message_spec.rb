@@ -4,18 +4,15 @@
 #
 # Table name: messages
 #
-#  id               :bigint           not null, primary key
-#  messageable_type :string           not null
-#  text             :text             not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  messageable_id   :bigint           not null
-#  user_id          :bigint           not null
+#  id         :bigint           not null, primary key
+#  text       :text             not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :bigint           not null
 #
 # Indexes
 #
-#  index_messages_on_messageable  (messageable_type,messageable_id)
-#  index_messages_on_user_id      (user_id)
+#  index_messages_on_user_id  (user_id)
 #
 # Foreign Keys
 #
@@ -60,19 +57,7 @@ RSpec.describe Message, type: :model do
     end
   end
 
-  describe '#messageable' do
-    subject { build(:message, :empty, user: user, messageable: nil) }
-
-    context 'when presents' do
-      it_behaves_like 'valid message'
-    end
-
-    context "when doesn't present" do
-      it_behaves_like 'invalid message'
-    end
-  end
-
-  describe "#timestamps" do
+  describe '#timestamps' do
     subject { build(:message, :empty, user: user, record_timestamps: nil) }
 
     context 'when presents' do
