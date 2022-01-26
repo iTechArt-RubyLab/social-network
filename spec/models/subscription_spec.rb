@@ -20,8 +20,38 @@
 #  fk_rails_...  (signatory_id => users.id)
 #  fk_rails_...  (subscriber_id => users.id)
 #
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Subscription, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:subscriber) { FactoryBot.create(:user) }
+  let(:signatory) { FactoryBot.create(:user) }
+  let(:subscription) { FactoryBot.create(:subscription, subscriber: subscriber, signatory: signatory) }
+
+  context "without subscriber" do
+    before { subscription.update(subscriber_id: nil) }
+
+    it "is invalid" do
+      expect(subscription).not_to be_valid
+    end
+
+    it "is not saved" do
+      expect do
+        subscription.save
+      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+    end
+  end
+
+  context "without signatory" do
+    before { subscription.update(signatory_id: nil) }
+
+    it "is invalid" do
+      expect(subscription).not_to be_valid
+    end
+
+    it "is not saved" do
+      expect do
+        subscription.save
+      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+    end
+  end
 end
