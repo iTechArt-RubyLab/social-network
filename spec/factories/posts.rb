@@ -21,6 +21,12 @@ FactoryBot.define do
     body { Faker::Lorem.characters(number: 10, min_alpha: 10) }
     status { 'public' }
 
+    factory :with_likes do
+      after(:create) do |post|
+        create_list(:like, 5, likeable: post)
+      end
+    end
+
     trait :private do
       status { 'private' }
     end

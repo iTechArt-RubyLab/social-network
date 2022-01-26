@@ -17,62 +17,53 @@
 #
 require 'rails_helper'
 
-RSpec.shared_examples 'Post' do
-  it 'expects post to be valid' do
-    expect(post).to be_valid
-  end
+shared_examples 'valid post' do
+  it { is_expected.to be_valid }
+  it { is_expected.to have_many(:likes) }
+  it { is_expected.to have_many(:pictures) }
+  it { is_expected.to belong_to(:user) }
 end
 
 RSpec.describe Post, type: :model do
-  subject(:post) { FactoryBot.create :post }
+  subject(:post) { create :post }
 
-  context 'when everything is valid' do
-    include_examples 'Post'
-
-    it { is_expected.to have_many(:likes) }
-    it { is_expected.to have_many(:pictures) }
-    it { is_expected.to belong_to(:user) }
+  context 'when post is public' do
+    context 'when everything is valid' do
+      include_examples 'valid post'
+    end
   end
 
   context 'when post is private' do
-    subject(:post) { FactoryBot.create :post, :private }
+    context 'when everything is valid' do
+      subject(:post) { create :post, :private }
 
-    include_examples 'Post'
-
-    it { is_expected.to have_many(:likes) }
-    it { is_expected.to have_many(:pictures) }
-    it { is_expected.to belong_to(:user) }
-  end
-
-  context 'when body is empty' do
-    let(:post_with_empty_body) { FactoryBot.build :post, :with_empty_body }
-
-    it 'cannot be created' do
-      expect do
-        post_with_empty_body.save!
-        # rubocop:disable Layout/LineLength
-      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Body can't be blank, Body is too short (minimum is 2 characters)")
-      # rubocop:enable Layout/LineLength
+      include_examples 'valid post'
     end
   end
 
-  context 'when status is empty' do
-    let(:post_with_empty_status) { FactoryBot.build :post, :with_empty_status }
+  describe '#body' do
+    context 'when body is empty' do
+      let(:post_with_empty_body) { build :post, :with_empty_body }
 
-    it 'cannot be created' do
-      expect do
-        post_with_empty_status.save!
-      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Status can't be blank")
+      it 'cannot be created' do
+        expect do
+          post_with_empty_body.save!
+          # rubocop:disable Layout/LineLength
+        end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Body can't be blank, Body is too short (minimum is 2 characters)")
+        # rubocop:enable Layout/LineLength
+      end
     end
   end
 
-  context 'when user is empty' do
-    let(:post_with_empty_user) { FactoryBot.build :post, :with_empty_user }
+  describe '#status' do
+    context 'when status is empty' do
+      let(:post_with_empty_status) { build :post, :with_empty_status }
 
-    it 'cannot be created' do
-      expect do
-        post_with_empty_user.save!
-      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: User must exist')
+      it 'cannot be created' do
+        expect do
+          post_with_empty_status.save!
+        end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Status can't be blank")
+      end
     end
   end
 end
