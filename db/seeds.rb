@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'factory_bot_rails'
+require "factory_bot_rails"
 
 Tag.delete_all
 Profile.delete_all
@@ -20,6 +20,7 @@ MAX_LIMIT_OF_MESSAGES = 7
 
 GENERATE_TAGS_COUNT = 30
 GENERATE_POSTS_COUNT = 5
+GENERATE_SUBSCRIPTIONS_COUNT = 10
 
 users = FactoryBot.create_list(:user, NUMBER_OF_USERS)
 users.each do |user|
@@ -38,3 +39,4 @@ USERS_WITH_A_SINGLE_MESSAGE.times do
 end
 
 FactoryBot.create_list(:tag, GENERATE_TAGS_COUNT)
+FactoryBot.create_list(:subscription, GENERATE_SUBSCRIPTIONS_COUNT)
