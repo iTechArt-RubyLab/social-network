@@ -33,6 +33,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'dotenv-rails'
+  # Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema
   gem 'annotate', '~> 3.1', '>= 3.1.1'
 end
 
