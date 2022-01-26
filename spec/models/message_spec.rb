@@ -24,38 +24,63 @@
 require 'rails_helper'
 
 RSpec.describe Message, type: :model do
-  let(:user) { FactoryBot.create(:user) }
-  let(:message) { FactoryBot.build(:message, user: user) }
-  let(:empty_message) { FactoryBot.build(:message, :empty, user: user) }
-  let(:message_without_user) { FactoryBot.build(:message, :without_user, user: user) }
+  let(:user) { create :user }
 
-  context 'with valid attributes' do
-    it 'is valid' do
-      expect(message).to be_valid
+  shared_examples 'valid message' do
+    subject { build(:message, user: user) }
+
+    it { is_expected.to be_valid }
+  end
+
+  shared_examples 'invalid message' do
+    it { is_expected.not_to be_valid }
+  end
+
+  describe '#user_id' do
+    subject { build(:message, user: nil) }
+
+    context 'when presents' do
+      it_behaves_like 'valid message'
+    end
+
+    context "when doesn't present" do
+      it_behaves_like 'invalid message'
     end
   end
 
-  context 'without message' do
-    it 'is invalid' do
-      expect(empty_message).not_to be_valid
+  describe '#text' do
+    subject { build(:message, :empty, user: user) }
+
+    context 'when presents' do
+      it_behaves_like 'valid message'
     end
 
-    it 'is not saved' do
-      expect do
-        empty_message.save!
-      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Text can't be blank")
+    context "when doesn't present" do
+      it_behaves_like 'invalid message'
     end
   end
 
-  context 'without user id' do
-    it 'is invalid' do
-      expect(message_without_user).not_to be_valid
+  describe '#messageable' do
+    subject { build(:message, :empty, user: user, messageable: nil) }
+
+    context 'when presents' do
+      it_behaves_like 'valid message'
     end
 
-    it 'is not saved' do
-      expect do
-        message_without_user.save!
-      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Messageable can't be blank")
+    context "when doesn't present" do
+      it_behaves_like 'invalid message'
+    end
+  end
+
+  describe "#timestamps" do
+    subject { build(:message, :empty, user: user, record_timestamps: nil) }
+
+    context 'when presents' do
+      it_behaves_like 'valid message'
+    end
+
+    context "when doesn't present" do
+      it_behaves_like 'invalid message'
     end
   end
 end
