@@ -27,6 +27,12 @@ FactoryBot.define do
       end
     end
 
+    factory :with_pictures do
+      after(:create) do |post|
+        create_list(:picture, 2, picturable: post)
+      end
+    end
+
     trait :private do
       status { 'private' }
     end
