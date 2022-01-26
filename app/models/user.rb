@@ -24,4 +24,9 @@ class User < ApplicationRecord
   validates :net_state, presence: true
   validates :profile_id, presence: true, uniqueness: true
   enum status: { active: 0, blocked: 1 }
+
+  has_many :subscribers, class_name: "Subscription",
+                         foreign_key: "subscriber_id"
+  has_many :signatories, class_name: "Subscription",
+                         foreign_key: "signatory_id"
 end
