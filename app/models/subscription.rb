@@ -15,6 +15,6 @@
 #  index_subscriptions_on_subscriber_id_id  (subscriber_id_id)
 #
 class Subscription < ApplicationRecord
-  belongs_to :subscriber_id
-  belongs_to :signatory_id
+  belongs_to :subscriber, class_name: "User"
+  belongs_to :signatory, class_name: "User"
 end
