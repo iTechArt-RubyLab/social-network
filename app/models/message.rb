@@ -19,7 +19,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Message < ApplicationRecord
-  validates :user_id, presence: true
+  belongs_to :user, validate: true
   validates :text, presence: true
-  belongs_to :user
 end
