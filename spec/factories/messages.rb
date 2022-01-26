@@ -23,10 +23,6 @@ FactoryBot.define do
     association :user
     text { Faker::Lorem.paragraph }
 
-    trait :without_user do
-      user_id { nil }
-    end
-
     trait :empty do
       text { nil }
     end
