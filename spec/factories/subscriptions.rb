@@ -22,7 +22,7 @@
 #
 FactoryBot.define do
   factory :subscription do
-    subscriber_id { nil }
-    signatory_id { nil }
+    association :subscriber, factory: :user
+    association :signatory, factory: :user
   end
 end
