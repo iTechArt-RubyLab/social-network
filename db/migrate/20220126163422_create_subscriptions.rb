@@ -10,5 +10,6 @@ class CreateSubscriptions < ActiveRecord::Migration[6.1]
 
     add_foreign_key :subscriptions, :users, column: :subscriber_id
     add_foreign_key :subscriptions, :users, column: :signatory_id
+    add_index :subscriptions, %i[subscriber_id signatory_id], unique: true
   end
 end
