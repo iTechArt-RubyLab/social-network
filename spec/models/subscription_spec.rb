@@ -31,6 +31,7 @@ RSpec.describe Subscription, type: :model do
     it "has subscriber subscriptions" do
       expect(subscriber).to have_many :subscriber_subscriptions
     end
+
     it "has signatory subscriptions" do
       expect(subscriber).to have_many :signatory_subscriptions
     end
@@ -40,6 +41,7 @@ RSpec.describe Subscription, type: :model do
     it "has subscriber subscriptions" do
       expect(signatory).to have_many :subscriber_subscriptions
     end
+
     it "has signatory subscriptions" do
       expect(signatory).to have_many :signatory_subscriptions
     end
@@ -55,7 +57,7 @@ RSpec.describe Subscription, type: :model do
     it "is not saved" do
       expect do
         subscription.save
-      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')
     end
   end
 
@@ -69,7 +71,7 @@ RSpec.describe Subscription, type: :model do
     it "is not saved" do
       expect do
         subscription.save
-      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')
     end
   end
 end
