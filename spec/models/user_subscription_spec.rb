@@ -29,11 +29,37 @@ RSpec.describe UserSubscription, type: :model do
 
   describe "subscriber" do
     it "has user subscriptions" do
-      expect(subscription).to have_many :user_subscriptions
+      expect(subscriber).to have_many :user_subscriptions
     end
 
     it "has user subscribers" do
       expect(subscriber).to have_many :user_subscribers
+    end
+
+    it "has subscriptions" do
+      expect(subscriber).to have_many :subscriptions
+    end
+
+    it "has subscribers" do
+      expect(subscriber).to have_many :subscribers
+    end
+  end
+
+  describe "subscription" do
+    it "has user subscriptions" do
+      expect(subscription).to have_many :user_subscriptions
+    end
+
+    it "has user subscribers" do
+      expect(subscription).to have_many :user_subscribers
+    end
+
+    it "has subscriptions" do
+      expect(subscription).to have_many :subscriptions
+    end
+
+    it "has subscribers" do
+      expect(subscription).to have_many :subscribers
     end
   end
 
