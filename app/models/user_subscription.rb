@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_subscriptions
@@ -31,8 +33,6 @@ class UserSubscription < ApplicationRecord
   private
 
   def different_subscriber_and_subscription_validation
-    if subscriber == subscription
-      errors.add :base, 'Subscriber and Subscription can\'t be the same user'
-    end
+    errors.add :base, 'Subscriber and Subscription can\'t be the same user' if subscriber == subscription
   end
 end

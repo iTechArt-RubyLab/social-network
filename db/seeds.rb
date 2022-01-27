@@ -21,6 +21,7 @@ MAX_LIMIT_OF_MESSAGES = 7
 GENERATE_TAGS_COUNT = 30
 GENERATE_POSTS_COUNT = 5
 GENERATE_SUBSCRIPTIONS_COUNT = 10
+GENERATE_PROFILE_COUNT = 6
 
 users = FactoryBot.create_list(:user, NUMBER_OF_USERS)
 users.each do |user|
@@ -40,3 +41,4 @@ end
 
 FactoryBot.create_list(:tag, GENERATE_TAGS_COUNT)
 FactoryBot.create_list(:subscription, GENERATE_SUBSCRIPTIONS_COUNT)
+FactoryBot.create_list(:profile, GENERATE_PROFILE_COUNT)
