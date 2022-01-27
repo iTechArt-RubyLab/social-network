@@ -28,19 +28,19 @@ RSpec.describe Subscription, type: :model do
   let(:subscription) { FactoryBot.create(:subscription, subscriber: subscriber, signatory: signatory) }
 
   describe "subscriber" do
-    it "has subscribers" do
+    it "has subscriber subscriptions" do
       expect(subscriber).to have_many :subscriber_subscriptions
     end
-    it "has signatories" do
+    it "has signatory subscriptions" do
       expect(subscriber).to have_many :signatory_subscriptions
     end
   end
 
   describe "signatory" do
-    it "has subscribers" do
+    it "has subscriber subscriptions" do
       expect(signatory).to have_many :subscriber_subscriptions
     end
-    it "has signatories" do
+    it "has signatory subscriptions" do
       expect(signatory).to have_many :signatory_subscriptions
     end
   end
