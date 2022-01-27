@@ -27,6 +27,15 @@ RSpec.describe Subscription, type: :model do
   let(:signatory) { FactoryBot.create(:user) }
   let(:subscription) { FactoryBot.create(:subscription, subscriber: subscriber, signatory: signatory) }
 
+  describe "subscriber" do
+    it "has subscribers" do
+      expect(subscriber).to have_many :subscriber_subscriptions
+    end
+    it "has signatories" do
+      expect(subscriber).to have_many :signatory_subscriptions
+    end
+  end
+
   context "without subscriber" do
     before { subscription.update(subscriber_id: nil) }
 
