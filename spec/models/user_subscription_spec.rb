@@ -20,74 +20,88 @@
 #  fk_rails_...  (subscriber_id => users.id)
 #  fk_rails_...  (subscription_id => users.id)
 #
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe UserSubscription, type: :model do
   let(:subscriber) { FactoryBot.create(:user) }
   let(:subscription) { FactoryBot.create(:user) }
   let(:user_subscription) { FactoryBot.create(:user_subscription, subscriber: subscriber, subscription: subscription) }
 
-  describe "subscriber" do
-    it "has user subscriptions" do
+  describe 'subscriber' do
+    it 'has user subscriptions' do
       expect(subscriber).to have_many :user_subscriptions
     end
 
-    it "has user subscribers" do
+    it 'has user subscribers' do
       expect(subscriber).to have_many :user_subscribers
     end
 
-    it "has subscriptions" do
+    it 'has subscriptions' do
       expect(subscriber).to have_many :subscriptions
     end
 
-    it "has subscribers" do
+    it 'has subscribers' do
       expect(subscriber).to have_many :subscribers
     end
   end
 
-  describe "subscription" do
-    it "has user subscriptions" do
+  describe 'subscription' do
+    it 'has user subscriptions' do
       expect(subscription).to have_many :user_subscriptions
     end
 
-    it "has user subscribers" do
+    it 'has user subscribers' do
       expect(subscription).to have_many :user_subscribers
     end
 
-    it "has subscriptions" do
+    it 'has subscriptions' do
       expect(subscription).to have_many :subscriptions
     end
 
-    it "has subscribers" do
+    it 'has subscribers' do
       expect(subscription).to have_many :subscribers
     end
   end
 
-  context "without subscriber" do
+  context 'without subscriber' do
     before { user_subscription.update(subscriber_id: nil) }
 
-    it "is invalid" do
+    it 'is invalid' do
       expect(user_subscription).not_to be_valid
     end
 
-    it "is not saved" do
+    it 'is not saved' do
       expect do
         user_subscription.save
-      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscriber can\'t be blank')
     end
   end
 
-  context "without subscription" do
+  context 'without subscription' do
     before { user_subscription.update(subscription_id: nil) }
 
-    it "is invalid" do
+    it 'is invalid' do
       expect(user_subscription).not_to be_valid
     end
 
-    it "is not saved" do
+    it 'is not saved' do
       expect do
         user_subscription.save
-      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscription can\'t be blank')
+    end
+  end
+
+  context 'when has the same subscriber and subscription' do
+    before { user_subscription.update(subscription: subscriber) }
+
+    it 'is invalid' do
+      expect(user_subscription).not_to be_valid
+    end
+
+    it 'is not saved' do
+      expect do
+        user_subscription.save
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscriber and Subscription can\'t be the same user')
     end
   end
 end

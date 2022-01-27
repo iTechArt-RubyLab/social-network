@@ -61,7 +61,7 @@ RSpec.describe PostTag, type: :model do
     it 'is not saved' do
       expect do
         post_tags.save
-      end.to.raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')
+      end.to.raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Tag can\'t be blank')
     end
   end
 
@@ -75,7 +75,7 @@ RSpec.describe PostTag, type: :model do
     it 'is not saved' do
       expect do
         post_tag.save
-      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Post can\'t be blank')
     end
   end
 end
