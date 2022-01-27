@@ -23,4 +23,6 @@
 class Subscription < ApplicationRecord
   belongs_to :subscriber, class_name: "User", validate: true
   belongs_to :signatory, class_name: "User", validate: true
+
+  validates :subscriber, uniqueness: { scope: :signatory }
 end
