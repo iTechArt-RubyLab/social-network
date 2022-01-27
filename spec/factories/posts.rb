@@ -15,6 +15,7 @@
 #
 #  index_posts_on_user_id  (user_id)
 #
+# rubocop:disable Metrics/BlockLength
 FactoryBot.define do
   factory :post, class: 'Post' do
     association :user
