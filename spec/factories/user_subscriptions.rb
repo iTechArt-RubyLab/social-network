@@ -22,6 +22,7 @@
 #
 FactoryBot.define do
   factory :user_subscription do
-    
+    association :subscriber, factory: :user
+    association :subscription, factory: :user
   end
 end
