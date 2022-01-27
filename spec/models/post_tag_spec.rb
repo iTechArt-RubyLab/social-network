@@ -16,66 +16,66 @@
 #  index_post_tags_on_post_id_and_tag_id  (post_id,tag_id) UNIQUE
 #  index_post_tags_on_tag_id              (tag_id)
 #
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe PostTag, type: :model do
   let(:tag) { FactoryBot.create(:tag) }
   let(:post) { FactoryBot.create(:post) }
   let(:post_tag) { FactoryBot.create(:post_tag, post: post, tag: tag) }
 
-  describe "post" do
-    context "with existing post" do
-      it "must exist" do
+  describe 'post' do
+    context 'with existing post' do
+      it 'must exist' do
         expect(tag.post).to exist
       end
     end
 
-    context "with connected post" do
-      it "must be with correct value" do
+    context 'with connected post' do
+      it 'must be with correct value' do
         expect(tag.post).to eq(post)
       end
     end
   end
 
-  describe "tag" do
-    context "with existing tag" do
-      it "must exist" do
+  describe 'tag' do
+    context 'with existing tag' do
+      it 'must exist' do
         expect(post.tag).to exist
       end
     end
 
-    context "with connected tag" do
-      it "must be with correct value" do
+    context 'with connected tag' do
+      it 'must be with correct value' do
         expect(post.tag).to eq(tag)
       end
     end
   end
 
-  context "without tag" do
+  context 'without tag' do
     before { post_tag.update(tag_id: nil) }
 
-    it "is invalid" do
+    it 'is invalid' do
       expect(post_tag).not_to be_valid
     end
 
-    it "is not saved" do
+    it 'is not saved' do
       expect do
         post_tags.save
-      end.to.raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+      end.to.raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')
     end
   end
 
-  context "without post" do
+  context 'without post' do
     before { post_tag.update(post_id: nil) }
 
-    it "is invalid" do
+    it 'is invalid' do
       expect(post_tag).not_to be_valid
     end
 
-    it "is not saved" do
+    it 'is not saved' do
       expect do
         post_tag.save
-      end.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')
     end
   end
 end

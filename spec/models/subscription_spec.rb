@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: subscriptions
@@ -20,55 +22,55 @@
 #  fk_rails_...  (signatory_id => users.id)
 #  fk_rails_...  (subscriber_id => users.id)
 #
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Subscription, type: :model do
   let(:subscriber) { FactoryBot.create(:user) }
   let(:signatory) { FactoryBot.create(:user) }
   let(:subscription) { FactoryBot.create(:subscription, subscriber: subscriber, signatory: signatory) }
 
-  describe "subscriber" do
-    it "has subscriber subscriptions" do
+  describe 'subscriber' do
+    it 'has subscriber subscriptions' do
       expect(subscriber).to have_many :subscriber_subscriptions
     end
 
-    it "has signatory subscriptions" do
+    it 'has signatory subscriptions' do
       expect(subscriber).to have_many :signatory_subscriptions
     end
   end
 
-  describe "signatory" do
-    it "has subscriber subscriptions" do
+  describe 'signatory' do
+    it 'has subscriber subscriptions' do
       expect(signatory).to have_many :subscriber_subscriptions
     end
 
-    it "has signatory subscriptions" do
+    it 'has signatory subscriptions' do
       expect(signatory).to have_many :signatory_subscriptions
     end
   end
 
-  context "without subscriber" do
+  context 'without subscriber' do
     before { subscription.update(subscriber_id: nil) }
 
-    it "is invalid" do
+    it 'is invalid' do
       expect(subscription).not_to be_valid
     end
 
-    it "is not saved" do
+    it 'is not saved' do
       expect do
         subscription.save
       end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')
     end
   end
 
-  context "without signatory" do
+  context 'without signatory' do
     before { subscription.update(signatory_id: nil) }
 
-    it "is invalid" do
+    it 'is invalid' do
       expect(subscription).not_to be_valid
     end
 
-    it "is not saved" do
+    it 'is not saved' do
       expect do
         subscription.save
       end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')

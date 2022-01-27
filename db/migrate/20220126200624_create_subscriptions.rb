@@ -12,6 +12,8 @@ class CreateSubscriptions < ActiveRecord::Migration[6.1]
     end
 
     add_index :subscriptions, %i[subscriber_id signatory_id], unique: true
-    add_check_constraint :subscriptions, "subscriber_id <> signatory_id", name: "check_subscriber_and_signatory_equality"
+    # rubocop:disable Layout/LineLength
+    add_check_constraint :subscriptions, 'subscriber_id <> signatory_id', name: 'check_subscriber_and_signatory_equality'
+    # rubocop:enable Layout/LineLength
   end
 end
