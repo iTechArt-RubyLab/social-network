@@ -59,8 +59,8 @@ RSpec.describe UserInterest, type: :model do
     end
 
     it 'is not saved' do
-      expect { user_interest.save }.to
-      raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile can\'t be blank')
+      expect { user_interest.save! }.to
+      raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile must exist')
     end
   end
 
@@ -72,8 +72,8 @@ RSpec.describe UserInterest, type: :model do
     end
 
     it 'is not saved' do
-      expect { user_interest.save }.to
-      raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Tag can\'t be blank')
+      expect { user_interest.save! }.to
+      raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Tag must exist')
     end
   end
 end

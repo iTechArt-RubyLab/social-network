@@ -72,8 +72,8 @@ RSpec.describe UserSubscription, type: :model do
 
     it 'is not saved' do
       expect do
-        user_subscription.save
-      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscriber can\'t be blank')
+        user_subscription.save!
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscriber must exist')
     end
   end
 
@@ -86,8 +86,8 @@ RSpec.describe UserSubscription, type: :model do
 
     it 'is not saved' do
       expect do
-        user_subscription.save
-      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscription can\'t be blank')
+        user_subscription.save!
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscription must exist')
     end
   end
 
@@ -100,7 +100,7 @@ RSpec.describe UserSubscription, type: :model do
 
     it 'is not saved' do
       expect do
-        user_subscription.save
+        user_subscription.save!
       end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscriber and Subscription can\'t be the same user')
     end
   end
