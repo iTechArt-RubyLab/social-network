@@ -29,7 +29,7 @@ FactoryBot.define do
     patronymic { Faker::Name.middle_name }
     birthday { Faker::Date.birthday(min_age: 18, max_age: 65) }
     email { Faker::Internet.unique.email }
-    phone { Faker::PhoneNumber.unique.cell_phone_in_e164 }
+    phone { Faker::PhoneNumber.unique.cell_phone}
     about { "#{Faker::Address.full_address}, #{Faker::University.name}, #{Faker::Hobby.activity}" }
     hidden { false }
     verified { false }

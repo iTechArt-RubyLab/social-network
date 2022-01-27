@@ -90,6 +90,22 @@ ActiveRecord::Schema.define(version: 2022_01_25_102311) do
     t.check_constraint "status = ANY (ARRAY[0, 1])", name: "check_post_status"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "surname", null: false
+    t.string "name", null: false
+    t.string "patronymic"
+    t.date "birthday", null: false
+    t.string "email", null: false
+    t.string "phone", limit: 15
+    t.text "about"
+    t.boolean "hidden", default: false, null: false
+    t.boolean "verified", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_profiles_on_email", unique: true
+    t.index ["phone"], name: "index_profiles_on_phone", unique: true
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -105,22 +121,6 @@ ActiveRecord::Schema.define(version: 2022_01_25_102311) do
     t.index ["profile_id", "tag_id"], name: "index_user_interests_on_profile_id_and_tag_id", unique: true
     t.index ["profile_id"], name: "index_user_interests_on_profile_id"
     t.index ["tag_id"], name: "index_user_interests_on_tag_id"
-  end
-
-  create_table "profiles", force: :cascade do |t|
-    t.string "surname", null: false
-    t.string "name", null: false
-    t.string "patronymic"
-    t.date "birthday", null: false
-    t.string "email", null: false
-    t.string "phone", limit: 15
-    t.text "about"
-    t.boolean "hidden", default: false, null: false
-    t.boolean "verified", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_profiles_on_email", unique: true
-    t.index ["phone"], name: "index_profiles_on_phone", unique: true
   end
 
   create_table "users", force: :cascade do |t|

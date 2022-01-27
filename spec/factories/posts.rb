@@ -21,15 +21,22 @@ FactoryBot.define do
     body { Faker::Lorem.characters(number: 10, min_alpha: 10) }
     status { 'public' }
 
-    factory :with_likes do
+    factory :post_with_likes do
       after(:create) do |post|
-        create_list(:like, 5, likeable: post)
+        create_list(:like, rand(0..13), likeable: post)
       end
     end
 
-    factory :with_pictures do
+    factory :post_with_pictures do
       after(:create) do |post|
-        create_list(:picture, 2, picturable: post)
+        create_list(:picture, rand(1..4), picturable: post)
+      end
+    end
+
+    factory :post_with_pictures_and_likes do
+      after(:create) do |post|
+        create_list(:picture, rand(1..4), picturable: post)
+        create_list(:like, rand(0..13), likeable: post)
       end
     end
 
@@ -50,3 +57,4 @@ FactoryBot.define do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

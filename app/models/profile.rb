@@ -24,8 +24,9 @@
 #
 class Profile < ApplicationRecord
   has_one :picture, as: :picturable
-  belongs_to :user
+  has_one :user
   has_many :user_interests
+  has_many :tags, through: :user_interests
 
   validates :surname, presence: true
   validates :name, presence: true
