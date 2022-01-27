@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2022_01_26_200624) do
     t.index ["signatory_id"], name: "index_subscriptions_on_signatory_id"
     t.index ["subscriber_id", "signatory_id"], name: "index_subscriptions_on_subscriber_id_and_signatory_id", unique: true
     t.index ["subscriber_id"], name: "index_subscriptions_on_subscriber_id"
+    t.check_constraint "subscriber_id <> signatory_id", name: "check_subscriber_and_signatory_equality"
   end
 
   create_table "tags", force: :cascade do |t|
