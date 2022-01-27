@@ -36,6 +36,15 @@ RSpec.describe Subscription, type: :model do
     end
   end
 
+  describe "signatory" do
+    it "has subscribers" do
+      expect(signatory).to have_many :subscriber_subscriptions
+    end
+    it "has signatories" do
+      expect(signatory).to have_many :signatory_subscriptions
+    end
+  end
+
   context "without subscriber" do
     before { subscription.update(subscriber_id: nil) }
 
