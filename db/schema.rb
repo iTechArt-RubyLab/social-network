@@ -52,6 +52,14 @@ ActiveRecord::Schema.define(version: 2022_01_25_102311) do
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
+  
+  create_table "messages", force: :cascade do |t|
+    t.text "text", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
 
   create_table "pictures", force: :cascade do |t|
     t.string "picturable_type"
@@ -100,4 +108,5 @@ ActiveRecord::Schema.define(version: 2022_01_25_102311) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "messages", "users"
 end
