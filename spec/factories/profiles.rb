@@ -34,7 +34,7 @@ FactoryBot.define do
     hidden { false }
     verified { false }
 
-    trait(:hidden) { hidden { true } }
-    trait(:verified) { verified { true } }
+    trait(:hidden_true) { hidden { true } }
+    trait(:verified_true) { verified { true } }
   end
 end
