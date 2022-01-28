@@ -59,9 +59,7 @@ RSpec.describe PostTag, type: :model do
     end
 
     it 'is not saved' do
-      expect do
-        post_tags.save!
-      end.to.raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Tag must exist')
+      expect { post_tag.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Tag must exist')
     end
   end
 
@@ -73,9 +71,7 @@ RSpec.describe PostTag, type: :model do
     end
 
     it 'is not saved' do
-      expect do
-        post_tag.save!
-      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Post must exist')
+      expect { post_tag.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Post must exist')
     end
   end
 end
