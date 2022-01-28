@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "factory_bot_rails"
+require 'factory_bot_rails'
 
 Tag.delete_all
 Profile.delete_all
