@@ -73,9 +73,7 @@ RSpec.describe UserSubscription, type: :model do
     end
 
     it 'is not saved' do
-      # rubocop:disable Layout/LineLength
       expect { user_subscription.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscriber must exist')
-      # rubocop:enable Layout/LineLength
     end
   end
 
@@ -87,9 +85,9 @@ RSpec.describe UserSubscription, type: :model do
     end
 
     it 'is not saved' do
-      # rubocop:disable Layout/LineLength
-      expect { user_subscription.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscription must exist')
-      # rubocop:enable Layout/LineLength
+      expect do
+        user_subscription.save!
+      end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscription must exist')
     end
   end
 
@@ -101,9 +99,7 @@ RSpec.describe UserSubscription, type: :model do
     end
 
     it 'is not saved' do
-      # rubocop:disable Layout/LineLength
       expect { user_subscription.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscriber and Subscription can\'t be the same user')
-      # rubocop:enable Layout/LineLength
     end
   end
 end
