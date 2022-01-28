@@ -34,6 +34,15 @@ USERS_WITH_MULTIPLE_MESSAGES.times do
   FactoryBot.create_list(:message, rand(MIN_LIMIT_OF_MESSAGES..MAX_LIMIT_OF_MESSAGES), user: user)
 end
 
+user1 = users.sample
+user2 = users.sample
+loop do
+  user2 = users.sample
+  break if user2 == user1
+end
+
+UserSubscription.create(subscriber_id: user1, subscription_id: user2)
+
 USERS_WITH_A_SINGLE_MESSAGE.times do
   user = users.delete(users.sample)
   FactoryBot.create(:message, user: user)
