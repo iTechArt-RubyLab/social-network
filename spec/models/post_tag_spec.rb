@@ -59,7 +59,9 @@ RSpec.describe PostTag, type: :model do
     end
 
     it 'is not saved' do
+      # rubocop:disable Layout/LineLength
       expect { post_tag.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Tag must exist')
+      # rubocop:enable Layout/LineLength
     end
   end
 
@@ -71,7 +73,9 @@ RSpec.describe PostTag, type: :model do
     end
 
     it 'is not saved' do
+      # rubocop:disable Layout/LineLength
       expect { post_tag.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Post must exist')
+      # rubocop:enable Layout/LineLength
     end
   end
 end
