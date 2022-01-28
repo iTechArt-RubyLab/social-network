@@ -17,14 +17,12 @@
 #
 FactoryBot.define do
   factory :user do
+    association :profile
     status { 'active' }
     net_state { Time.now }
-    profile_id { rand(1000) }
-  end
 
-  factory :blocked_user do
-    status { 'blocked' }
-    net_state { Time.now }
-    profile_id { rand(1000) }
+    trait :blocked_user do
+      status { 'blocked' }
+    end
   end
 end

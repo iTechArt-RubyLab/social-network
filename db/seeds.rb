@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-# This file should contain all the record creation needed to seed the database with-
-# its default values.
-# The data can then be loaded with the bin/rails db:seed command-
-# (or created alongside the database with db:setup).
-# Examples:
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 require 'factory_bot_rails'
+
+Tag.delete_all
+Profile.delete_all
+Message.delete_all
+Like.delete_all
+User.delete_all
+Picture.delete_all
+Post.delete_all
 
 USERS_WITH_MULTIPLE_MESSAGES = 2
 USERS_WITH_NO_MESSAGES = 3
@@ -19,8 +19,13 @@ MIN_LIMIT_OF_MESSAGES = 3
 MAX_LIMIT_OF_MESSAGES = 7
 
 GENERATE_TAGS_COUNT = 30
+GENERATE_POSTS_COUNT = 5
 
 users = FactoryBot.create_list(:user, NUMBER_OF_USERS)
+users.each do |user|
+  FactoryBot.create_list(:post, GENERATE_POSTS_COUNT, user: user)
+  FactoryBot.create_list(:post_with_pictures_and_likes, GENERATE_POSTS_COUNT, user: user)
+end
 
 USERS_WITH_MULTIPLE_MESSAGES.times do
   user = users.delete(users.sample)
@@ -33,7 +38,3 @@ USERS_WITH_A_SINGLE_MESSAGE.times do
 end
 
 FactoryBot.create_list(:tag, GENERATE_TAGS_COUNT)
-
-GENERATE_PROFILE_COUNT = 6
-
-FactoryBot.create_list(:profile, GENERATE_PROFILE_COUNT)

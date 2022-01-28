@@ -79,21 +79,15 @@ ActiveRecord::Schema.define(version: 2022_01_25_102311) do
     t.index ["tag_id"], name: "index_post_tags_on_tag_id"
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name", null: false
+  create_table "posts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.text "body", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_tags_on_name", unique: true
-  end
-
-  create_table "user_interests", force: :cascade do |t|
-    t.bigint "profile_id"
-    t.bigint "tag_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["profile_id", "tag_id"], name: "index_user_interests_on_profile_id_and_tag_id", unique: true
-    t.index ["profile_id"], name: "index_user_interests_on_profile_id"
-    t.index ["tag_id"], name: "index_user_interests_on_tag_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.check_constraint "(length(body) > 2) AND (280 > length(body))", name: "check_body_lenght"
+    t.check_constraint "status = ANY (ARRAY[0, 1])", name: "check_post_status"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -110,6 +104,23 @@ ActiveRecord::Schema.define(version: 2022_01_25_102311) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_profiles_on_email", unique: true
     t.index ["phone"], name: "index_profiles_on_phone", unique: true
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "user_interests", force: :cascade do |t|
+    t.bigint "profile_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["profile_id", "tag_id"], name: "index_user_interests_on_profile_id_and_tag_id", unique: true
+    t.index ["profile_id"], name: "index_user_interests_on_profile_id"
+    t.index ["tag_id"], name: "index_user_interests_on_tag_id"
   end
 
   create_table "users", force: :cascade do |t|

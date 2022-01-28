@@ -9,7 +9,7 @@ class CreateProfiles < ActiveRecord::Migration[6.1]
       t.string :patronymic
       t.date :birthday, null: false
       t.string :email, null: false
-      t.string :phone, :limit 15
+      t.string :phone, limit: 15
       t.text :about
       t.boolean :hidden, null: false, default: false
       t.boolean :verified, null: false, default: false
