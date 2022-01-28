@@ -16,5 +16,9 @@
 FactoryBot.define do
   factory :conversation do
     name { Faker::Lorem.word }
+
+    trait :empty do
+      name { nil }
+    end
   end
 end
