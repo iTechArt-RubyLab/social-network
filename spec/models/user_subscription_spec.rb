@@ -99,7 +99,9 @@ RSpec.describe UserSubscription, type: :model do
     end
 
     it 'is not saved' do
-      expect { user_subscription.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Subscriber and Subscription can\'t be the same user')
+      # rubocop:disable Layout/LineLength
+      expect { post_tag.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Post must exist')
+      # rubocop:enable Layout/LineLength
     end
   end
 end
