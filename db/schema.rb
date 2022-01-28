@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_25_170849) do
-  
+ActiveRecord::Schema.define(version: 2022_01_25_102311) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,13 +41,6 @@ ActiveRecord::Schema.define(version: 2022_01_25_170849) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "conversations", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_conversations_on_name", unique: true
   end
 
   create_table "likes", force: :cascade do |t|
@@ -86,6 +79,23 @@ ActiveRecord::Schema.define(version: 2022_01_25_170849) do
     t.index ["tag_id"], name: "index_post_tags_on_tag_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "user_interests", force: :cascade do |t|
+    t.bigint "profile_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["profile_id", "tag_id"], name: "index_user_interests_on_profile_id_and_tag_id", unique: true
+    t.index ["profile_id"], name: "index_user_interests_on_profile_id"
+    t.index ["tag_id"], name: "index_user_interests_on_tag_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "surname", null: false
     t.string "name", null: false
@@ -102,23 +112,6 @@ ActiveRecord::Schema.define(version: 2022_01_25_170849) do
     t.index ["phone"], name: "index_profiles_on_phone", unique: true
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_tags_on_name", unique: true
-  end
-  
-  create_table "user_interests", force: :cascade do |t|
-    t.bigint "profile_id"
-    t.bigint "tag_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["profile_id", "tag_id"], name: "index_user_interests_on_profile_id_and_tag_id", unique: true
-    t.index ["profile_id"], name: "index_user_interests_on_profile_id"
-    t.index ["tag_id"], name: "index_user_interests_on_tag_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.integer "status", default: 0, null: false
     t.datetime "net_state", null: false
@@ -129,20 +122,7 @@ ActiveRecord::Schema.define(version: 2022_01_25_170849) do
     t.check_constraint "status = ANY (ARRAY[0, 1])", name: "check_user_status"
   end
 
-  create_table "users_conversations", force: :cascade do |t|
-    t.bigint "conversation_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["conversation_id"], name: "index_users_conversations_on_conversation_id"
-    t.index ["user_id"], name: "index_users_conversations_on_user_id"
-  end
-
-
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "messages", "users"
-  add_foreign_key "users_conversations", "conversations"
-  add_foreign_key "users_conversations", "users"
 end
