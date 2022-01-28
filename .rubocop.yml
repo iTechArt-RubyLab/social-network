@@ -21,3 +21,6 @@ AllCops:
 
 inherit_from:
   - .rubocop_airbnb.yml
+
+Layout/LineLength:
+  Max: 150

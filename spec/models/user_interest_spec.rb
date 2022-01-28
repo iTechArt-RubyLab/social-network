@@ -23,28 +23,28 @@ RSpec.describe UserInterest, type: :model do
   let(:tag) { FactoryBot.create(:tag) }
   let(:user_interest) { FactoryBot.create(:user_interest, profile: profile, tag: tag) }
 
-  describe 'profile' do
-    context 'with existing profile' do
+  describe 'tag' do
+    context 'with existing tag' do
       it 'must exist' do
         expect(profile.tag).to exist
       end
     end
 
-    context 'with connected profile' do
+    context 'with connected tag' do
       it 'must be with correct value' do
         expect(profile.tag).to eq(tag)
       end
     end
   end
 
-  describe 'tag' do
-    context 'with existing tag' do
+  describe 'profile' do
+    context 'with existing profile' do
       it 'must exist' do
         expect(tag.profile).to exist
       end
     end
 
-    context 'with connected tag' do
+    context 'with connected profile' do
       it 'must be with correct value' do
         expect(tag.profile).to eq(profile)
       end
@@ -59,8 +59,8 @@ RSpec.describe UserInterest, type: :model do
     end
 
     it 'is not saved' do
-      expect { user_interest.save }.to
-      raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+      expect { user_interest.save! }.to
+      raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Profile must exist')
     end
   end
 
@@ -72,8 +72,8 @@ RSpec.describe UserInterest, type: :model do
     end
 
     it 'is not saved' do
-      expect { user_interest.save }.to
-      raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+      expect { user_interest.save! }.to
+      raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Tag must exist')
     end
   end
 end

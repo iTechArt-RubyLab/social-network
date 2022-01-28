@@ -6,7 +6,7 @@
 #
 #  id         :bigint           not null, primary key
 #  net_state  :datetime         not null
-#  status     :integer          default("active"), not null
+#  status     :integer          default('active'), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  profile_id :integer          not null
@@ -24,4 +24,10 @@ class User < ApplicationRecord
   validates :net_state, presence: true
   validates :profile_id, presence: true, uniqueness: true
   enum status: { active: 0, blocked: 1 }
+
+  has_many :user_subscriptions, class_name: 'UserSubscription', foreign_key: 'subscriber_id'
+  has_many :subscriptions, through: :user_subscriptions
+
+  has_many :user_subscribers, class_name: 'UserSubscription', foreign_key: 'subscription_id'
+  has_many :subscribers, through: :user_subscribers
 end

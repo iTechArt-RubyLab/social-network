@@ -20,6 +20,8 @@ MAX_LIMIT_OF_MESSAGES = 7
 
 GENERATE_TAGS_COUNT = 30
 GENERATE_POSTS_COUNT = 5
+GENERATE_SUBSCRIPTIONS_COUNT = 10
+GENERATE_PROFILE_COUNT = 6
 
 users = FactoryBot.create_list(:user, NUMBER_OF_USERS)
 users.each do |user|
@@ -32,9 +34,20 @@ USERS_WITH_MULTIPLE_MESSAGES.times do
   FactoryBot.create_list(:message, rand(MIN_LIMIT_OF_MESSAGES..MAX_LIMIT_OF_MESSAGES), user: user)
 end
 
+user1 = users.sample
+user2 = users.sample
+loop do
+  user2 = users.sample
+  break if user2 == user1
+end
+
+UserSubscription.create(subscriber_id: user1, subscription_id: user2)
+
 USERS_WITH_A_SINGLE_MESSAGE.times do
   user = users.delete(users.sample)
   FactoryBot.create(:message, user: user)
 end
 
 FactoryBot.create_list(:tag, GENERATE_TAGS_COUNT)
+FactoryBot.create_list(:subscription, GENERATE_SUBSCRIPTIONS_COUNT)
+FactoryBot.create_list(:profile, GENERATE_PROFILE_COUNT)

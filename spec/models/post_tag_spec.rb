@@ -23,28 +23,28 @@ RSpec.describe PostTag, type: :model do
   let(:post) { FactoryBot.create(:post) }
   let(:post_tag) { FactoryBot.create(:post_tag, post: post, tag: tag) }
 
-  describe 'tag' do
-    context 'with existing tag' do
+  describe 'post' do
+    context 'with existing post' do
       it 'must exist' do
         expect(tag.post).to exist
       end
     end
 
-    context 'with connected tag' do
+    context 'with connected post' do
       it 'must be with correct value' do
         expect(tag.post).to eq(post)
       end
     end
   end
 
-  describe 'post' do
-    context 'with existing post' do
+  describe 'tag' do
+    context 'with existing tag' do
       it 'must exist' do
         expect(post.tag).to exist
       end
     end
 
-    context 'with connected post' do
+    context 'with connected tag' do
       it 'must be with correct value' do
         expect(post.tag).to eq(tag)
       end
@@ -59,8 +59,7 @@ RSpec.describe PostTag, type: :model do
     end
 
     it 'is not saved' do
-      expect { post_tags.save }.to
-      raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+      expect { post_tag.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Tag must exist')
     end
   end
 
@@ -72,8 +71,7 @@ RSpec.describe PostTag, type: :model do
     end
 
     it 'is not saved' do
-      expect { post_tag.save }.to
-      raise_error(ActiveRecord::RecordInvalid, "Validation failed: Profile can't be blank")
+      expect { post_tag.save! }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Post must exist')
     end
   end
 end
