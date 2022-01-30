@@ -49,5 +49,4 @@ USERS_WITH_A_SINGLE_MESSAGE.times do
 end
 
 FactoryBot.create_list(:tag, GENERATE_TAGS_COUNT)
-FactoryBot.create_list(:subscription, GENERATE_SUBSCRIPTIONS_COUNT)
-FactoryBot.create_list(:profile, GENERATE_PROFILE_COUNT)
+#FactoryBot.create_list(:subscription, GENERATE_SUBSCRIPTIONS_COUNT)

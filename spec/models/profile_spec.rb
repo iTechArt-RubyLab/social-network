@@ -7,7 +7,6 @@
 #  id         :bigint           not null, primary key
 #  about      :text
 #  birthday   :date             not null
-#  email      :string           not null
 #  hidden     :boolean          default(FALSE), not null
 #  name       :string           not null
 #  patronymic :string
@@ -16,11 +15,12 @@
 #  verified   :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :bigint           not null
 #
 # Indexes
 #
-#  index_profiles_on_email  (email) UNIQUE
-#  index_profiles_on_phone  (phone) UNIQUE
+#  index_profiles_on_phone    (phone) UNIQUE
+#  index_profiles_on_user_id  (user_id) UNIQUE
 #
 require 'rails_helper'
 
@@ -41,11 +41,6 @@ RSpec.describe Profile, type: :model do
 
       it 'ensures birthday presecence' do
         profile.birthday = nil
-        expect(profile.save).to eq(false)
-      end
-
-      it 'ensures email presecence' do
-        profile.email = nil
         expect(profile.save).to eq(false)
       end
 

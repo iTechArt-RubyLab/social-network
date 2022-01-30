@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_27_172240) do
+ActiveRecord::Schema.define(version: 2022_01_28_234636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,27 +95,15 @@ ActiveRecord::Schema.define(version: 2022_01_27_172240) do
     t.string "name", null: false
     t.string "patronymic"
     t.date "birthday", null: false
-    t.string "email", null: false
+    t.bigint "user_id", null: false
     t.string "phone", limit: 15
     t.text "about"
     t.boolean "hidden", default: false, null: false
     t.boolean "verified", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_profiles_on_email", unique: true
     t.index ["phone"], name: "index_profiles_on_phone", unique: true
-  end
-
-  create_table "subscriptions", force: :cascade do |t|
-    t.bigint "subscriber_id", null: false
-    t.bigint "signatory_id", null: false
-    t.boolean "status", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["signatory_id"], name: "index_subscriptions_on_signatory_id"
-    t.index ["subscriber_id", "signatory_id"], name: "index_subscriptions_on_subscriber_id_and_signatory_id", unique: true
-    t.index ["subscriber_id"], name: "index_subscriptions_on_subscriber_id"
-    t.check_constraint "subscriber_id <> signatory_id", name: "check_subscriber_and_signatory_equality"
+    t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
   end
 
   create_table "tags", force: :cascade do |t|
@@ -149,11 +137,33 @@ ActiveRecord::Schema.define(version: 2022_01_27_172240) do
 
   create_table "users", force: :cascade do |t|
     t.integer "status", default: 0, null: false
-    t.datetime "net_state", null: false
-    t.integer "profile_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["profile_id"], name: "index_users_on_profile_id", unique: true
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.boolean "allow_password_change", default: false
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.string "email"
+    t.json "tokens"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
     t.check_constraint "status = ANY (ARRAY[0, 1])", name: "check_user_status"
   end
 
