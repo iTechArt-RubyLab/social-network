@@ -8,7 +8,7 @@ class CreateProfiles < ActiveRecord::Migration[6.1]
       t.string :name, null: false
       t.string :patronymic
       t.date :birthday, null: false
-      t.references :user, null: false, index: { unique: true }
+      t.string :email, null: false
       t.string :phone, limit: 15
       t.text :about
       t.boolean :hidden, null: false, default: false
