@@ -24,7 +24,7 @@ FactoryBot.define do
 
     factory :post_with_likes do
       after(:create) do |post|
-        create_list(:like, rand(0..13), likeable: post)
+        create_list(:like, rand(0..2), likeable: post)
       end
     end
 
@@ -37,7 +37,7 @@ FactoryBot.define do
     factory :post_with_pictures_and_likes do
       after(:create) do |post|
         create_list(:picture, rand(1..4), picturable: post)
-        create_list(:like, rand(0..13), likeable: post)
+        create_list(:like, rand(0..2), likeable: post)
       end
     end
 

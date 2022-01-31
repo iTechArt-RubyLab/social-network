@@ -40,8 +40,8 @@
 class User < ApplicationRecord
   extend Devise::Models
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable,
-  :omniauthable
+         :recoverable, :rememberable, :trackable,
+         :validatable, :omniauthable
   include DeviseTokenAuth::Concerns::User
 
   has_one :profile
@@ -54,6 +54,6 @@ class User < ApplicationRecord
   has_many :user_subscribers, class_name: 'UserSubscription', foreign_key: 'subscription_id'
   has_many :subscribers, through: :user_subscribers
 
-  validates :status, presence: true, inclusion: { in: %w(active blocked) }
+  validates :status, presence: true, inclusion: { in: %w[active blocked] }
   enum status: { active: 0, blocked: 1 }
 end
