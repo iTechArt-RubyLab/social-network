@@ -137,6 +137,8 @@ GEM
       method_source (~> 1.0)
     puma (5.5.2)
       nio4r (~> 2.0)
+    pundit (2.1.1)
+      activesupport (>= 3.0.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-cors (1.1.1)
@@ -264,6 +266,7 @@ DEPENDENCIES
   pg (~> 1.1)
   pry
   puma (~> 5.0)
+  pundit (~> 2.1, >= 2.1.1)
   rack-cors
   rails (~> 6.1.4, >= 6.1.4.4)
   rspec-rails (~> 5.0.0)

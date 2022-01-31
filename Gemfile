@@ -39,6 +39,7 @@ group :development, :test do
   gem 'pry'
   # Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema
   gem 'annotate', '~> 3.1', '>= 3.1.1'
+  gem 'pundit', '~> 2.1', '>= 2.1.1'
 end
 
 group :development do
