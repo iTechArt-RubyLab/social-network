@@ -20,7 +20,11 @@
 # Indexes
 #
 #  index_profiles_on_phone    (phone) UNIQUE
-#  index_profiles_on_user_id  (user_id) UNIQUE
+#  index_profiles_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 require 'rails_helper'
 
@@ -56,6 +60,10 @@ RSpec.describe Profile, type: :model do
 
       it 'saves successfully' do
         expect(profile.save).to eq(true)
+      end
+
+      it 'is associated with a user' do
+        expect(profile).to belong_to(:user)
       end
     end
   end

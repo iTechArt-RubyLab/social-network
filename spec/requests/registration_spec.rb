@@ -12,7 +12,7 @@ RSpec.describe 'Registration', type: :request do
   end
 
   describe 'Email registration method' do
-    context 'when signup params is valid' do
+    context 'when signup params are valid' do
       before do
         post sign_up_url, params: signup_params
       end
@@ -21,7 +21,7 @@ RSpec.describe 'Registration', type: :request do
         expect(response).to have_http_status(:success)
       end
 
-      it 'returns authentication header with right attributes' do
+      it 'returns authentication header with correct attributes' do
         expect(response.headers['access-token']).to be_present
       end
 
@@ -38,11 +38,11 @@ RSpec.describe 'Registration', type: :request do
       end
     end
 
-    context 'when signup params is invalid' do
+    context 'when signup params are invalid' do
       before { post sign_up_url }
 
       it 'returns unprocessable entity 422' do
-        expect(response.status).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end

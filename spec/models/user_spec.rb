@@ -69,5 +69,4 @@ RSpec.describe User, type: :model do
       end.to raise_error(ArgumentError, "'not_listed' is not a valid status")
     end
   end
-
 end

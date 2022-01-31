@@ -13,7 +13,7 @@ RSpec.describe 'Session', type: :request do
   let(:sign_out_url) { '/auth/sign_out' }
 
   describe 'POST /auth/sign_in' do
-    context 'when login params is valid' do
+    context 'when login params are valid' do
       before do
         post sign_in_url, params: login_params, as: :json
       end
@@ -39,7 +39,7 @@ RSpec.describe 'Session', type: :request do
       end
     end
 
-    context 'when login params is invalid' do
+    context 'when login params are invalid' do
       before { post sign_in_url }
 
       it 'returns unathorized status 401' do
