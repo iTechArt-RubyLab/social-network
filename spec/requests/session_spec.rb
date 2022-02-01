@@ -51,13 +51,14 @@ RSpec.describe 'Session', type: :request do
   describe 'DELETE /api/v1/auth/sign_out' do
     before do
       post sign_in_url, params: login_params, as: :json
-      let(:headers) do
-        {
-          'uid' => response.headers['uid'],
-          'client' => response.headers['client'],
-          'access-token' => response.headers['access-token']
-        }
-      end
+    end
+
+    let(:headers) do
+      {
+        'uid' => response.headers['uid'],
+        'client' => response.headers['client'],
+        'access-token' => response.headers['access-token']
+      }
     end
 
     it 'returns status 200' do

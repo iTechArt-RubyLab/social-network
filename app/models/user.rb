@@ -54,6 +54,7 @@ class User < ApplicationRecord
   has_many :user_subscribers, class_name: 'UserSubscription', foreign_key: 'subscription_id'
   has_many :subscribers, through: :user_subscribers
 
+  validates :email, presence: true, uniqueness: true
   validates :status, presence: true, inclusion: { in: %w[active blocked] }
   enum status: { active: 0, blocked: 1 }
 end

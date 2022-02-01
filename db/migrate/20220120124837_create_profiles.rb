@@ -16,7 +16,7 @@ class CreateProfiles < ActiveRecord::Migration[6.1]
       # rubocop:disable Layout/LineLength
       t.timestamps
     end
-    #add_index :profiles, :email, unique: true
+    add_index :profiles, :email, unique: true
     add_index :profiles, :phone, unique: true
       # rubocop:enable Layout/LineLength
   end
