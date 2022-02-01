@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.3'
 
+# Allows generate JSON in an object-oriented and convention-driven manner
+gem 'active_model_serializers', '~> 0.10.13'
+# Middleware that will make Rack-based apps CORS compatible
 gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
