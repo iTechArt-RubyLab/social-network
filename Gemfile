@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.3'
 
+gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
 # Use postgresql as the database for Active Record
@@ -20,7 +21,6 @@ gem 'devise'
 gem 'devise_token_auth'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
- gem 'rack-cors'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -39,7 +39,6 @@ group :development, :test do
   gem 'pry'
   # Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema
   gem 'annotate', '~> 3.1', '>= 3.1.1'
-  gem 'pundit', '~> 2.1', '>= 2.1.1'
 end
 
 group :development do
