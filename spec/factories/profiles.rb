@@ -7,7 +7,6 @@
 #  id         :bigint           not null, primary key
 #  about      :text
 #  birthday   :date             not null
-#  email      :string           not null
 #  hidden     :boolean          default(FALSE), not null
 #  name       :string           not null
 #  patronymic :string
@@ -16,19 +15,24 @@
 #  verified   :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :bigint           not null
 #
 # Indexes
 #
-#  index_profiles_on_email  (email) UNIQUE
-#  index_profiles_on_phone  (phone) UNIQUE
+#  index_profiles_on_phone    (phone) UNIQUE
+#  index_profiles_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 FactoryBot.define do
   factory :profile do
+    association :user
     surname { Faker::Name.last_name }
     name { Faker::Name.first_name }
     patronymic { Faker::Name.middle_name }
     birthday { Faker::Date.birthday(min_age: 18, max_age: 65) }
-    email { Faker::Internet.unique.email }
     phone { Faker::PhoneNumber.unique.cell_phone }
     about { "#{Faker::Address.full_address}, #{Faker::University.name}, #{Faker::Hobby.activity}" }
     hidden { false }

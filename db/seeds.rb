@@ -53,5 +53,4 @@ conversations.each do |conversation|
   end
 end
 
-FactoryBot.create_list(:profile, GENERATE_PROFILE_COUNT)
 FactoryBot.create_list(:tag, GENERATE_TAGS_COUNT)

@@ -17,6 +17,7 @@ AllCops:
     - 'Gemfile.lock'
     - 'config.ru'
     - 'db/migrate/20220120101655_create_active_storage_tables.active_storage.rb'
+    - 'db/migrate/20220128234636_devise_token_auth_create_users.rb'
     - 'db/migrate/20220120124837_create_profiles.rb'
 
 inherit_from:
