@@ -23,7 +23,7 @@ RSpec.describe UserConversation, type: :model do
   let(:conversation) { FactoryBot.create(:conversation) }
   let(:user_conversation) { FactoryBot.create(:user_conversation, user: user, conversation: conversation) }
 
-  describe 'user' do
+  describe '#user' do
     context 'with existing user' do
       it 'must exist' do
         expect(conversation.user).to exist
@@ -37,7 +37,7 @@ RSpec.describe UserConversation, type: :model do
     end
   end
 
-  describe 'conversation' do
+  describe '#conversation' do
     context 'with existing conversation' do
       it 'must exist' do
         expect(user.conversation).to exist

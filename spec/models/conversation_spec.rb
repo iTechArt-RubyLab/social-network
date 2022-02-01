@@ -14,7 +14,10 @@ require 'rails_helper'
 RSpec.describe Conversation, type: :model do
   subject(:conversation) { FactoryBot.build(:conversation) }
 
-  describe 'validation test' do
+  let(:list_of_all_users) { create_list :user, 10 }
+  let(:users_in_conversation) { list_of_all_users.sample(5) }
+
+  describe 'valid conversation' do
     context 'when we have required fields to fill in' do
       it 'ensures name presecence' do
         conversation.name = nil
@@ -25,5 +28,12 @@ RSpec.describe Conversation, type: :model do
         expect(conversation.save).to eq(true)
       end
     end
+  end
+
+  describe '#users' do
+    subject(:conversation_members) { (create :conversation, :with_multiple_users, users: users_in_conversation).users }
+
+    it { is_expected.to eq(users_in_conversation) }
+    it { is_expected.not_to eq(list_of_all_users) }
   end
 end
