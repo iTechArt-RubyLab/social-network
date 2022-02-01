@@ -23,6 +23,7 @@
 FactoryBot.define do
   factory :message do
     association :user
+    association :conversation
     text { Faker::Lorem.paragraph }
 
     trait :empty do
