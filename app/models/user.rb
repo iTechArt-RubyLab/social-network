@@ -58,6 +58,6 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :status, presence: true, inclusion: { in: %w[active blocked] }
-  
+
   enum status: { active: 0, blocked: 1 }
 end

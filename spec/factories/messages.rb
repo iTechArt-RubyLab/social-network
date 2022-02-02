@@ -18,6 +18,7 @@
 #
 # Foreign Keys
 #
+#  fk_rails_...  (conversation_id => conversations.id)
 #  fk_rails_...  (user_id => users.id)
 #
 FactoryBot.define do
