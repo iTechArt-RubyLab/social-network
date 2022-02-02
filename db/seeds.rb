@@ -32,10 +32,11 @@ users.each do |user|
   FactoryBot.create_list(:post_with_pictures_and_likes, GENERATE_POSTS_COUNT, user: user)
 end
 
-# rubocop:disable Layout/LineLength
-conversations = FactoryBot.create_list(:conversation, GENERATE_CONVERSATIONS_COUNT, :with_multiple_users, users: users.sample(rand(3..NUMBER_OF_USERS)))
-conversations += FactoryBot.create_list(:conversation, GENERATE_CONVERSATIONS_COUNT, :dialog, users: users)
-# rubocop:enable Layout/LineLength
+conversation_users = users.sample(rand(3..NUMBER_OF_USERS))
+dialog_users = users.sample(2)
+
+conversations = FactoryBot.create_list(:conversation, GENERATE_CONVERSATIONS_COUNT, :with_multiple_users, users: conversation_users)
+conversations += FactoryBot.create_list(:conversation, GENERATE_CONVERSATIONS_COUNT, :dialog, users: dialog_users)
 
 users.each_slice(2) do |subscriber, subscription|
   UserSubscription.create(subscriber: subscriber, subscription: subscription)
@@ -45,10 +46,10 @@ conversations.each do |conversation|
   users = conversation.users
   users.each do |user|
     chance = rand
-    if chance.between?(0, 0.4)
+    if chance < 0.4
       FactoryBot.create(:message, user: user, conversation: conversation)
-    elsif chance.between?(0.5, 0.9)
-      FactoryBot.create_list(:message, rand(MIN_LIMIT_OF_MESSAGES..MAX_LIMIT_OF_MESSAGES), user: user, conversation: conversation)
+    else
+      FactoryBot.create_list(:message, rand(1..5), user: user, conversation: conversation)
     end
   end
 end
