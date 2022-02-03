@@ -1,23 +1,16 @@
-class MessagePolicy < ApplicationPolicy
-  def index?
-    false
-  end
+# frozen_string_literal: true
 
+# MessagePolicy
+class MessagePolicy < ApplicationPolicy
   def create?
-    user.present?
+    true
   end
 
   def update?
-    user.present? && record.user == user
+    owns_record?
   end
 
   def destroy?
     update?
-  end
-
-  class Scope < Scope
-    def resolve
-      scope.all
-    end
   end
 end
