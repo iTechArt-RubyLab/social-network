@@ -1,6 +1,12 @@
 class API::V1::ProfilesController < ActionController::API
+  include DeviseTokenAuth::Concerns::SetUserByToken
+  include Pundit
+  
+  before_action :authenticate_user!
   before_action :set_profile, only: %i[show update]
-
+  before_action :authorize_profile!
+  after_action :verify_authorized
+  
   # GET /profiles or /profiles.json
   def index
     @profiles = Profile.all
@@ -15,8 +21,8 @@ class API::V1::ProfilesController < ActionController::API
   # PUT /profiles/:id or /profiles/:id.json
   def update
     if profile_params.blank?
-      render :json => { :error => "There was no profile data passed in so your profile could not be saved." },
-             :status => :unprocessable_entity
+      render json: { error: 'There was no profile data passed in so your profile could not be saved.' },
+             status: :unprocessable_entity
     else
       if @profile.update(profile_params)
         render json: true, status: :ok 
@@ -29,8 +35,8 @@ class API::V1::ProfilesController < ActionController::API
   # POST /profiles or /profiles.json
   def create
     if profile_params.blank?
-      render :json => { :error => "There was no profile data passed in so your profile could not be saved." },
-             :status => :unprocessable_entity
+      render json: { error: 'There was no profile data passed in so your profile could not be saved.' },
+             status: :unprocessable_entity
     else
       @profile = Profile.new(profile_params)
       if @profile.save
