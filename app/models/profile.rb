@@ -37,4 +37,12 @@ class Profile < ApplicationRecord
   validates :birthday, presence: true
   validates :phone, presence: true, uniqueness: true, length: { maximum: 15 }
   validates :about, presence: true
+
+  def public?
+    !hidden
+  end
+
+  def private?
+    hidden
+  end
 end

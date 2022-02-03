@@ -1,20 +1,20 @@
+# frozen_string_literal: true
+
+# ProfilePolicy
 class ProfilePolicy < ApplicationPolicy
   def show?
-    user.present? || !record.hidden
+    record.public? || owns_record?
   end
 
   def create?
-    user.present?
+    true
   end
 
   def update?
-    user.present? && record.user == user
+    owns_record?
   end
 
-  def destroy?
-    update?
-  end
-
+  # ProfilePolicy Scope
   class Scope < Scope
     def resolve
       scope.all
