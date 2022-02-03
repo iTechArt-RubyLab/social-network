@@ -1,15 +1,22 @@
+# frozen_string_literal: true
+
+# UserSubscriptionPolicy
 class UserSubscriptionPolicy < ApplicationPolicy
   def create?
-    user.present?
+    true
   end
 
   def destroy?
-    create? && [record.subscriber_id, record.subscription_id].include?(user.id)
+    create? && (subscriber? || subscription?)
   end
 
-  class Scope < Scope
-    def resolve
-      scope.all
-    end
+  private
+
+  def subscriber?
+    record.subscriber == user
+  end
+
+  def subscription?
+    record.subscription == user
   end
 end

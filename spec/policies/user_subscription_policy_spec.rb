@@ -3,25 +3,30 @@ require 'rails_helper'
 RSpec.describe UserSubscriptionPolicy, type: :policy do
   subject { described_class }
 
-  let(:user) { User.new }
+  let(:subscriber) { create :user }
+  let(:subscription) { create :user }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+  context 'when user presents' do
+    let(:user) { create :user }
+    let(:record) { create :user_subscription }
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+    permissions :create?, :index? do
+      it 'is allowed to create and view list of instances' do
+        expect(subject).to permit(user, record)
+      end
+    end
 
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+    permissions :destroy? do
+      let(:record) { create :user_subscription, subscriber: subscriber, subscription: subscription }
 
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+      it "is not allowed to delete the instance that doesn't belong to user" do
+        expect(subject).not_to permit(user, record)
+      end
 
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+      it "is allowed to delete the instance that belong to user" do
+        expect(subject).to permit(subscriber, record)
+        expect(subject).to permit(subscription, record)
+      end
+    end
   end
 end
