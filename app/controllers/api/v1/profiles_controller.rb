@@ -1,5 +1,5 @@
 class API::V1::ProfilesController < ActionController::API
-  before_action :set_profile, only: %i[show]
+  before_action :set_profile, only: %i[show update]
 
   # GET /profiles or /profiles.json
   def index
@@ -14,12 +14,12 @@ class API::V1::ProfilesController < ActionController::API
 
   # PUT /profiles/:id or /profiles/:id.json
   def update
-    if params[:profile].blank?
+    if profile_params.blank?
       render :json => { :error => "There was no profile data passed in so your profile could not be saved." },
              :status => :unprocessable_entity
     else
       if @profile.update(profile_params)
-        render :json, status: :ok 
+        render json: true, status: :ok 
       else
         render json: @profile.errors, status: :unprocessable_entity
       end
@@ -28,11 +28,16 @@ class API::V1::ProfilesController < ActionController::API
 
   # POST /profiles or /profiles.json
   def create
-    @profile = Profile.new(profile_params)
-    if @profile.save
-      render :json, status: :created
+    if profile_params.blank?
+      render :json => { :error => "There was no profile data passed in so your profile could not be saved." },
+             :status => :unprocessable_entity
     else
-      render json: @profile.errors, status: :unprocessable_entity 
+      @profile = Profile.new(profile_params)
+      if @profile.save
+        render json: @profile, status: :created
+      else
+        render json: @profile.errors, status: :unprocessable_entity 
+      end
     end
   end
 
