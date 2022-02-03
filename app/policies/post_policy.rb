@@ -1,20 +1,24 @@
+# frozen_string_literal: true
+
+# PostPolicy
 class PostPolicy < ApplicationPolicy
   def show?
-    user.present? || record.status == 'public'
+    record.public_status? || owns_record?
   end
 
   def create?
-    user.present?
+    true
   end
 
   def update?
-    user.present? && record.user == user
+    owns_record?
   end
 
   def destroy?
     update?
   end
 
+  # PostPolicy Scope
   class Scope < Scope
     def resolve
       scope.all
