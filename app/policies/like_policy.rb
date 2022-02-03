@@ -1,19 +1,12 @@
+# frozen_string_literal: true
+
+# LikePolicy
 class LikePolicy < ApplicationPolicy
   def create?
-    user.present?
-  end
-
-  def update?
-    user.present? && record.user == user
+    true
   end
 
   def destroy?
-    update?
-  end
-
-  class Scope < Scope
-    def resolve
-      scope.all
-    end
+    owns_record?
   end
 end
