@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# ProfilePolicy
+# Profily policy
 class ProfilePolicy < ApplicationPolicy
   def show?
     record.public? || owns_record?
@@ -14,7 +14,7 @@ class ProfilePolicy < ApplicationPolicy
     owns_record?
   end
 
-  # ProfilePolicy Scope
+  # Profile policy scope
   class Scope < Scope
     def resolve
       scope.all

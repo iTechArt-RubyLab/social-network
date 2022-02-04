@@ -3,12 +3,17 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.3'
 
+# Allows generate JSON in an object-oriented and convention-driven manner
+gem 'active_model_serializers', '~> 0.10.13'
+# Middleware that will make Rack-based apps CORS compatible
+gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
+gem 'pundit', '~> 2.1', '>= 2.1.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -20,7 +25,6 @@ gem 'devise'
 gem 'devise_token_auth'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
- gem 'rack-cors'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -39,7 +43,6 @@ group :development, :test do
   gem 'pry'
   # Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema
   gem 'annotate', '~> 3.1', '>= 3.1.1'
-  gem 'pundit', '~> 2.1', '>= 2.1.1'
 end
 
 group :development do
