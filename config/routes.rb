@@ -7,8 +7,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users do
         resources :profiles, only: %i[index show update create]
-        get :profile, to: 'profiles#show'
-        put :profile, to: 'profiles#update'
+        get :subscribers, to: 'user_subscriptions#subscribers'
+        get :subscriptions, to: 'user_subscriptions#subscriptions'
+        post :subscribe, to: 'user_subscriptions#subscribe'
+        post :unsubscribe, to: 'user_subscriptions#unsubscribe'
       end
       resources :posts
       resources :likes, only: %i[create destroy index]
