@@ -1,106 +1,184 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Profiles", type: :request do
-  describe "GET /api/v1/profiles" do
-    before { get '/api/v1/profiles' }
+RSpec.describe 'Profiles', type: :request do
+  let(:current_user) { FactoryBot.create(:user) }
+  let(:auth_headers) { current_user.create_new_auth_token }
 
-    it 'returns profiles' do
-      expect(JSON.parse(response.body)).to eq []
-    end
+  describe 'GET /api/v1/profiles' do
+    context 'when authenticated user' do
+      before { get '/api/v1/profiles', headers: auth_headers }
 
-    it 'have http status 200' do
-      expect(response).to have_http_status(:ok)
-    end
-
-    it "returns http success" do
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe 'GET /api/v1/profiles/:id' do
-    let(:profile) { FactoryBot.create(:profile) }
-
-    before { get "/api/v1/profiles/#{profile.id}" }
-
-    it 'returns a profile by id' do
-      expect(response.body).to eq ProfileSerializer.new(profile).to_json
-    end
-
-    it 'have http status 200' do
-      expect(response).to have_http_status(:ok)
-    end
-
-    it "returns http success" do
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe 'PUT /api/v1/profiles/:id' do
-    let(:profile) { FactoryBot.create(:profile) }
-
-    describe 'modify profile' do
-      subject(:profile_data) { FactoryBot.build(:profile) }
-
-      before do
-        put "/api/v1/profiles/#{profile.id}", params: { surname: profile_data.surname,
-                                                        name: profile_data.name,
-                                                        patronymic: profile_data.patronymic,
-                                                        birthday: profile_data.birthday,
-                                                        phone: profile_data.phone,
-                                                        about: profile_data.about }
-        profile.reload
+      it 'returns result' do
+        expect(JSON.parse(response.body)).not_to eq []
       end
 
       it 'have http status 200' do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'updates the surname of the profile' do
-        expect(profile.surname).to eq(profile_data.surname)
-      end
-
-      it 'updates the name of the profile' do
-        expect(profile.name).to eq(profile_data.name)
-      end
-
-      it 'updates the phone of the profile' do
-        expect(profile.phone).to eq(profile_data.phone)
-      end
-    
-      it "returns http success" do
+      it 'returns http success' do
         expect(response).to have_http_status(:success)
+      end
+
+      it 'is allowed to get list of profiles' do
+        expect(response).not_to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when user is not authenticated' do
+      before { get '/api/v1/profiles' }
+
+      it 'have http status 401' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+
+  describe 'GET /api/v1/profiles/:id' do
+    let(:profile) { FactoryBot.create(:profile) }
+
+    before { get "/api/v1/profiles/#{profile.id}", headers: auth_headers }
+
+    context 'when authenticated user' do
+      it 'returns a profile by id' do
+        expect(response.body).to eq ProfileSerializer.new(profile).to_json
+      end
+
+      it 'have http status 200' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'returns http success' do
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'is allowed to get public profile' do
+        expect(response).not_to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when user is not authenticated' do
+      before { get "/api/v1/profiles/#{profile.id}" }
+
+      it 'have http status 401' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+
+  describe 'PUT /api/v1/profiles/:id' do
+    describe 'modify profile' do
+      subject(:profile_data) { FactoryBot.build(:profile) }
+
+      let(:profile_params) do
+        { surname: profile_data.surname,
+          name: profile_data.name,
+          patronymic: profile_data.patronymic,
+          birthday: profile_data.birthday,
+          phone: profile_data.phone,
+          about: profile_data.about }
+      end
+
+      context 'when it is owned by user' do
+        let(:profile) { current_user.profile }
+
+        before do
+          put "/api/v1/profiles/#{profile.id}", params: profile_params, headers: auth_headers
+          profile.reload
+        end
+
+        context 'when authenticated user' do
+          it 'have http status 200' do
+            expect(response).to have_http_status(:ok)
+          end
+
+          it 'updates the surname of the profile' do
+            expect(profile.surname).to eq(profile_data.surname)
+          end
+
+          it 'updates the name of the profile' do
+            expect(profile.name).to eq(profile_data.name)
+          end
+
+          it 'updates the phone of the profile' do
+            expect(profile.phone).to eq(profile_data.phone)
+          end
+
+          it 'returns http success' do
+            expect(response).to have_http_status(:success)
+          end
+
+          it 'is allowed to modify his own profile' do
+            expect(response).not_to have_http_status(:unauthorized)
+          end
+        end
+
+        context 'when user is not authenticated' do
+          before do
+            put "/api/v1/profiles/#{profile.id}", params: profile_params
+            profile.reload
+          end
+
+          it 'have http status 401' do
+            expect(response).to have_http_status(:unauthorized)
+          end
+        end
+      end
+
+      context 'when it is not owned by user' do
+        let(:profile) { FactoryBot.create(:profile) }
+
+        it 'is not allowed to modify not his own profile' do
+          expect { put "/api/v1/profiles/#{profile.id}", params: profile_params, headers: auth_headers }.to raise_error(Pundit::NotAuthorizedError)
+        end
       end
     end
   end
 
   describe 'POST /api/v1/profiles' do
     let(:profile) { FactoryBot.create(:profile) }
-    let(:user) { FactoryBot.create(:user) }
 
     describe 'create profile' do
       subject(:profile_data) { FactoryBot.build(:profile) }
 
-      before do
-        headers = { 'ACCEPT' => 'application/json; charset=utf-8' }
-        post '/api/v1/profiles', params: { surname: profile_data.surname,
-                                           name: profile_data.name,
-                                           patronymic: profile_data.patronymic,
-                                           birthday: profile_data.birthday,
-                                           phone: profile_data.phone,
-                                           about: profile_data.about,
-                                           user_id: user.id }, headers: headers
+      let(:profile_params) do
+        { surname: profile_data.surname,
+          name: profile_data.name,
+          patronymic: profile_data.patronymic,
+          birthday: profile_data.birthday,
+          phone: profile_data.phone,
+          about: profile_data.about,
+          user_id: current_user.id }
       end
+
+      before { post '/api/v1/profiles', params: profile_params, headers: auth_headers }
 
       it 'has correct content-type' do
         expect(response.content_type).to eq('application/json; charset=utf-8')
       end
 
-      it 'creates profile' do
-        expect(response).to have_http_status(:created)
+      context 'when authenticated user' do
+        it 'creates profile' do
+          expect(response).to have_http_status(:created)
+        end
+
+        it 'returns http success' do
+          expect(response).to have_http_status(:success)
+        end
+
+        it 'is allowed to create profile' do
+          expect(response).not_to have_http_status(:unauthorized)
+        end
       end
 
-      it "returns http success" do
-        expect(response).to have_http_status(:success)
+      context 'when user is not authenticated' do
+        before { post '/api/v1/profiles', params: profile_params }
+
+        it 'have http status 401' do
+          expect(response).to have_http_status(:unauthorized)
+        end
       end
     end
   end
