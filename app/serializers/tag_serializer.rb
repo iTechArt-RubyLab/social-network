@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Сlass responsible for serializing tag data
+# Class responsible for serializing tag data
 class TagSerializer < ActiveModel::Serializer
   attributes :id, :name
   attribute :profiles_count

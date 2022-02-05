@@ -9,7 +9,7 @@ RSpec.describe TagPolicy, type: :policy do
     let(:user) { create :user }
     let(:record) { create :tag }
 
-    permissions :create?, :index? do
+    permissions :create?, :index?, :posts? do
       it 'is allowed to create and view list of instances' do
         expect(policy).to permit(user, record)
       end
