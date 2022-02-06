@@ -6,6 +6,7 @@ module API
     class PostsController < ApplicationController
       before_action :authenticate_user!, except: %i[index show]
       before_action :set_post, except: %i[index create]
+      before_action :set_tag, only: %i[remove_tag]
       before_action :authorize_post!
       after_action :verify_authorized
 
@@ -44,6 +45,7 @@ module API
         end
       end
 
+      # DELETE /posts/:id or /posts/:id.json
       def destroy
         if @post.destroy
           render json: true, status: :no_content
@@ -52,16 +54,44 @@ module API
         end
       end
 
+      # POST /posts/:id/add_tag or /posts/:id/add_tag.json
+      def add_tag
+        tag = Tag.find_or_create_by(tag_params)
+        if tag_params.blank?
+          render json: { error: 'There was no tag data passed in so your post could not be saved.' },
+                 status: :unprocessable_entity
+        else
+          @post.tags << tag
+          if @post.save
+            render json: @post, status: :created
+          else
+            render json: @post.errors, status: :unprocessable_entity
+          end
+        end
+      end
+
+      # DELETE /posts/:post_id/remove_tag/:id or /posts/:post_id/remove_tag/:id.json
+      def remove_tag
+        @post.tags.destroy(@tag)
+        head 204
+      end
+
       private
 
       def set_post
-        @post = Post.find(params[:id])
+        @post = Post.find(params[:post_id] || params[:id])
+      end
+
+      def set_tag
+        @tag = Tag.find(params[:id])
       end
 
       def post_params
-        params.permit(
-          :id, :body, :status, :created_at, :updated_at, :user_id
-        )
+        params.permit(:id, :body, :status, :created_at, :updated_at, :user_id)
+      end
+
+      def tag_params
+        params.permit(:name)
       end
 
       def authorize_post!

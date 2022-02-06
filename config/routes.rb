@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :profiles, only: %i[index show update create]
-      resources :posts
+      resources :posts  do
+        post '/add_tag', to: 'posts#add_tag'
+        delete '/remove_tag/:id', to: 'posts#remove_tag'
+      end
     end
   end
 end
