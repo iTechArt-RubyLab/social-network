@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       resources :likes, only: %i[create destroy index]
       resources :messages, except: %i[index, show]
       resources :posts
+      resources :conversations
+      resources :profiles, only: %i[index show update create]
     end
   end
 end
