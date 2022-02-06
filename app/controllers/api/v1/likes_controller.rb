@@ -41,10 +41,7 @@ module API
       end
 
       def like_params
-<<<<<<< HEAD
         params.permit(:user, :likeable_id, :likeable_type)
-=======
-        params.permit(:user,:likeable)
       end
       end
     end
