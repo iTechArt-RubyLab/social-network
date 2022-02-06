@@ -14,6 +14,14 @@ class ProfilePolicy < ApplicationPolicy
     owns_record?
   end
 
+  def add_tag?
+    update?
+  end
+
+  def remove_tag?
+    update?
+  end
+
   # Profile policy scope
   class Scope < Scope
     def resolve
