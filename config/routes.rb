@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :profiles, only: %i[index show update create]
+      resources :posts
     end
   end
 end
