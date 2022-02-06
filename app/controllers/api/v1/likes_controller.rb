@@ -2,6 +2,7 @@
 
 module API
   module V1
+    # Controller class that is responsible for handling like requests.
     class LikesController < ApplicationController
       include DeviseTokenAuth::Concerns::SetUserByToken
       include Pundit

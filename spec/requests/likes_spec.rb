@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-
+# rubocop:disable Metrics/BlockLength
 RSpec.describe 'Likes', type: :request do
   let(:current_user) { create(:user) }
   let(:auth_headers) { current_user.create_new_auth_token }
@@ -57,3 +57,4 @@ RSpec.describe 'Likes', type: :request do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
