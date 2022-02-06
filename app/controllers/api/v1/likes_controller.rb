@@ -2,7 +2,6 @@
 
 module API
   module V1
-    # Controller class that is responsible for handling user subscriptions requests.
     class LikesController < ApplicationController
       include DeviseTokenAuth::Concerns::SetUserByToken
       include Pundit
@@ -13,21 +12,20 @@ module API
       after_action :verify_authorized
 
       def create
-
-          @like = current_user.likes.new(like_params)
-          if @like.save
-            render json: @like, status: :created
-          else
-            render json: @like.errors, status: :unprocessable_entity
-          end
+        @like = current_user.likes.new(like_params)
+        if @like.save
+          render json: @like, status: :created
+        else
+          render json: @like.errors, status: :unprocessable_entity
+        end
       end
 
       def destroy
-          if @like.destroy
-            render json: @like
-          else
-            render json: { error: 'Error deleting like' }, status: :unprocessable_entity
-          end
+        if @like.destroy
+          render json: @like
+        else
+          render json: { error: 'Error deleting like' }, status: :unprocessable_entity
+        end
       end
 
       private
@@ -37,7 +35,7 @@ module API
       end
 
       def like_params
-        params.permit(:user,:likeable)
+        params.permit(:user, :likeable_id, :likeable_type)
       end
 
       def authorize_like!

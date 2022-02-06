@@ -5,12 +5,11 @@ require 'rails_helper'
 RSpec.describe 'Likes', type: :request do
   let(:current_user) { create(:user) }
   let(:auth_headers) { current_user.create_new_auth_token }
-  let(:post) { create(:post) }
-
+  let(:valid_post) { create(:post) }
 
   describe 'POST /api/v1/likes' do
     describe 'create user subscription' do
-      before { post '/api/v1/likes', params: { likeable_id: 12,likeable_type:'Post'}, headers: auth_headers }
+      before { post '/api/v1/likes', params: { likeable_id: valid_post.id, likeable_type: 'Post' }, headers: auth_headers }
 
       it 'has correct content-type' do
         expect(response.content_type).to eq('application/json; charset=utf-8')
@@ -24,11 +23,10 @@ RSpec.describe 'Likes', type: :request do
         it 'returns http success' do
           expect(response).to have_http_status(:success)
         end
-
       end
 
       context 'when user is not authenticated' do
-        before { post '/api/v1/likes', params: { likeable: post } }
+        before { post '/api/v1/likes', params: { likeable_id: valid_post.id, likeable_type: 'Post' } }
 
         it 'have http status 401' do
           expect(response).to have_http_status(:unauthorized)
@@ -39,12 +37,11 @@ RSpec.describe 'Likes', type: :request do
 
   describe 'DELETE /api/v1/likes/:id' do
     describe 'delete user like' do
-      let(:like) { create(:like, user: current_user, likeable: post) }
+      let(:like) { create(:like, user: current_user, likeable_id: valid_post.id, likeable_type: 'Post') }
 
       before { delete "/api/v1/likes/#{like.id}", headers: auth_headers }
 
       context 'when user is authenticated' do
-
         it 'returns http success' do
           expect(response).to have_http_status(:success)
         end
