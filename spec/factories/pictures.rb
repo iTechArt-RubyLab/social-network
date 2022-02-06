@@ -19,11 +19,11 @@ FactoryBot.define do
     images { Rack::Test::UploadedFile.new("#{::Rails.root}/spec/support/assets/1.jpg") }
 
     trait :posts do
-      association :likable, factory: :post
+      association :picturable, factory: :post
     end
 
     trait :profiles do
-      association :likable, factory: :profile
+      association :picturable, factory: :profile
     end
 
     trait :empty do

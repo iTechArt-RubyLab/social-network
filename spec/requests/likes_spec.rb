@@ -44,9 +44,6 @@ RSpec.describe 'Likes', type: :request do
       before { delete "/api/v1/likes/#{like.id}", headers: auth_headers }
 
       context 'when user is authenticated' do
-        it 'returns no content' do
-          expect(response).to have_http_status(:no_content)
-        end
 
         it 'returns http success' do
           expect(response).to have_http_status(:success)
