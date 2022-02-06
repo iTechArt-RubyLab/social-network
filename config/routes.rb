@@ -24,6 +24,10 @@ Rails.application.routes.draw do
       resources :conversations do
         post 'add_user/:user_id', to: 'conversations#add_user'
         delete 'delete_user/:user_id', to: 'conversations#delete_user'
+        get :profile, to: 'profiles#show'
+        put :profile, to: 'profiles#update'
+        post '/add_tag', to: 'profiles#add_tag'
+        delete '/remove_tag/:name', to: 'profiles#remove_tag'
       end
       get '/search_profile', to: 'search#search_profile'
       get '/search_conversation', to: 'search#search_conversation'
