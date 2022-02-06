@@ -13,8 +13,9 @@ Rails.application.routes.draw do
         get :profile, to: 'profiles#show'
         put :profile, to: 'profiles#update'
       end
-      resources :posts
       resources :likes, only: %i[create destroy index]
+      resources :messages, except: %i[index, show]
+      resources :posts
     end
   end
 end
