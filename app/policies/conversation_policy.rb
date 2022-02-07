@@ -10,6 +10,14 @@ class ConversationPolicy < ApplicationPolicy
     true
   end
 
+  def add_user?
+    true
+  end
+
+  def delete_user?
+    true
+  end
+
   def update?
     true
   end

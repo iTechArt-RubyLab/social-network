@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       resources :messages, except: %i[index, show]
       resources :posts
       resources :conversations
+      post 'conversations/add_user/:id', to: 'conversations#add_user'
+      delete 'conversations/delete_user/:id', to: 'conversations#delete_user'
       resources :profiles, only: %i[index show update create]
     end
   end

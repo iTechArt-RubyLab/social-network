@@ -8,12 +8,12 @@ module API
       include Pundit
 
       before_action :authenticate_user!
-      before_action :conversation, only: %i[show destroy update]
+      before_action :conversation, only: %i[show destroy update add_user delete_user]
       before_action :authorize_conversation!
       after_action :verify_authorized
 
       def index
-        @conversations = Conversation.all
+        @conversations = current_user.conversations.all
         render json: @conversations, status: :ok
       end
 
@@ -25,9 +25,28 @@ module API
         end
       end
 
+      def add_user
+        @conversation.users << User.where(id: params[:user_id]) if params[:user_id].present?
+        if @conversation.save!
+          render json: @conversation, status: :created
+        else
+          render json: @conversation.errors, status: :unprocessable_entity
+        end
+      end
+
+      def delete_user
+        @conversation.users.delete(User.where(id: params[:user_id]))
+        if @conversation.save!
+          render json: @conversation
+        else
+          render json: { error: 'Error deleting user' }, status: :unprocessable_entity
+        end
+      end
+
       def create
-        @conversation = Conversation.new(conversation_params)
-        if @conversation.save
+        @conversation = Conversation.create(conversation_params)
+        @conversation.users = User.where(id: current_user.id)
+        if @conversation.save!
           render json: @conversation, status: :created
         else
           render json: @conversation.errors, status: :unprocessable_entity
