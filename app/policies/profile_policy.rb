@@ -10,6 +10,10 @@ class ProfilePolicy < ApplicationPolicy
     true
   end
 
+  def search?
+    true
+  end
+
   def update?
     owns_record?
   end

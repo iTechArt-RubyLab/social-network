@@ -23,6 +23,7 @@ gem 'pundit', '~> 2.1', '>= 2.1.1'
 gem 'omniauth'
 gem 'devise'
 gem 'devise_token_auth'
+gem 'search_flip'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 # Reduces boot times through caching; required in config/boot.rb

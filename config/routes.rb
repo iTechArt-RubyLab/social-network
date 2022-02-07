@@ -25,6 +25,8 @@ Rails.application.routes.draw do
         post 'add_user/:user_id', to: 'conversations#add_user'
         delete 'delete_user/:user_id', to: 'conversations#delete_user'
       end
+      resources :profiles, only: %i[index show update create]
+      get '/search' => 'profiles#search'
     end
   end
 end
