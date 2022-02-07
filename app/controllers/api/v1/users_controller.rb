@@ -3,11 +3,7 @@
 module API
   module V1
     # User Endpoints Controller
-    class UsersController < ActionController::API
-      include DeviseTokenAuth::Concerns::SetUserByToken
-      include Pundit
-
-      before_action :authenticate_user!
+    class UsersController < ApplicationController
       before_action :set_user, only: :show
       before_action :authorize_user!, only: :show
       after_action :verify_authorized, only: :show

@@ -3,11 +3,7 @@
 module API
   module V1
     # Controller class that is responsible for handling profile requests.
-    class ProfilesController < ActionController::API
-      include DeviseTokenAuth::Concerns::SetUserByToken
-      include Pundit
-
-      before_action :authenticate_user!
+    class ProfilesController < ApplicationController
       before_action :set_profile, only: %i[show update]
       before_action :authorize_profile!
       after_action :verify_authorized
