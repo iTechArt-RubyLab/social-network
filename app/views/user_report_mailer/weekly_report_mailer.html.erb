@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <%= csrf_meta_tags %>
+    <style>
+      body {
+        font-family: "Open Sans";
+        margin-left: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Hi, <%= @user.profile.name %></h2>
+    <h1>Your weekly report is here! 🙈 Check it out! 🙄</h1>
+    <h3>New subscriptions:</h3>
+    <%= render partial: "users", locals: { users: @weekly_report[:subscriptions]} %>
+    <h3>New subscribers:</h3>
+    <%= render partial: "users", locals: { users: @weekly_report[:subscribers]} %>
+   </body>
+</html>
