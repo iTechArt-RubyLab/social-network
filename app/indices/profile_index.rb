@@ -14,7 +14,6 @@ class ProfileIndex
 
   def self.serialize(profile)
     {
-      id: profile.id,
       surname: profile.surname,
       name: profile.name,
       patronymic: profile.patronymic,

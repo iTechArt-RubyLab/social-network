@@ -8,11 +8,6 @@ module API
       before_action :authorize_profile!
       after_action :verify_authorized
 
-      def search
-        @profiles = ProfileIndex.search(params[:query].to_s)
-        render json: @profiles.records
-      end
-
       # GET /profiles or /profiles.json
       def index
         render json: Profile.all, status: :ok

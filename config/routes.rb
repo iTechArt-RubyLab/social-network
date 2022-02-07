@@ -26,7 +26,9 @@ Rails.application.routes.draw do
         delete 'delete_user/:user_id', to: 'conversations#delete_user'
       end
       resources :profiles, only: %i[index show update create]
-      get '/search' => 'profiles#search'
+      get '/search_profile', to: 'search#search_profile'
+      get '/search_conversation', to: 'search#search_conversation'
+      get '/search_tag', to: 'search#search_tag'
     end
   end
 end
