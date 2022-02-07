@@ -27,6 +27,7 @@ module API
       end
 
       def destroy
+        @like = current_user.likes.find(params[:id])
         if @like.destroy
           render json: @like
         else
