@@ -16,14 +16,10 @@ Rails.application.routes.draw do
       resources :likes, only: %i[create destroy index]
       resources :messages, except: %i[index, show]
       resources :posts
-      resources :conversations
-      post 'conversations/add_user/:id', to: 'conversations#add_user'
-      delete 'conversations/delete_user/:id', to: 'conversations#delete_user'
       resources :conversations do
-        post 'add_user/:id', to: 'conversations#add_user'
-        delete 'delete_user/:id', to: 'conversations#delete_user'
+        post 'add_user/:user_id', to: 'conversations#add_user'
+        delete 'delete_user/:user_id', to: 'conversations#delete_user'
       end
-      resources :profiles, only: %i[index show update create]
     end
   end
 end

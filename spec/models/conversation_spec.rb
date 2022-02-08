@@ -29,4 +29,11 @@ RSpec.describe Conversation, type: :model do
       end
     end
   end
+
+  describe '#users' do
+    subject(:conversation_members) { (create :conversation, :with_multiple_users, users: users_in_conversation).users }
+
+    it { is_expected.to eq(users_in_conversation) }
+    it { is_expected.not_to eq(list_of_all_users) }
+  end
 end

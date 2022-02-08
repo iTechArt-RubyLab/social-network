@@ -2,5 +2,5 @@
 
 # Serializer for Conversation
 class ConversationSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :messages
 end

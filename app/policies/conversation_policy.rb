@@ -3,7 +3,7 @@
 # Profily policy
 class ConversationPolicy < ApplicationPolicy
   def show?
-    true
+    record.users.include?(user)
   end
 
   def create?
@@ -11,19 +11,19 @@ class ConversationPolicy < ApplicationPolicy
   end
 
   def add_user?
-    true
+    show?
   end
 
   def delete_user?
-    true
+    show?
   end
 
   def update?
-    true
+    show?
   end
 
   def destroy?
-    true
+    show?
   end
 
   # Profile policy scope

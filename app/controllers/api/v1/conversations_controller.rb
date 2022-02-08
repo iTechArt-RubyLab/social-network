@@ -4,14 +4,8 @@ module API
   module V1
     # Controller class that is responsible for handling conversation requests.
     class ConversationsController < ApplicationController
-      include DeviseTokenAuth::Concerns::SetUserByToken
-      include Pundit
-
-      before_action :authenticate_user!
-      before_action :find_conversation, only: %i[show destroy update]
-      before_action :find_conversation_id, only: %i[add_user delete_user]
+      before_action :find_conversation, only: %i[show destroy update add_user delete_user]
       before_action :authorize_conversation!
-      before_action :verify_authorized
 
       def index
         @conversations = current_user.conversations
@@ -27,16 +21,17 @@ module API
       end
 
       def add_user
-        user = User.find_by(id: params[:id])
-        if user
+        user = User.find_by(id: params[:user_id])
+        if user && @conversation
           @conversation.users << user
+          render json: @conversation, status: :ok
         else
           render json: { error: 'Error adding user' }, status: :unprocessable_entity
         end
       end
 
       def delete_user
-        @conversation.users.delete(User.find_by(id: params[:id]))
+        @conversation.users.delete(User.find_by(id: params[:user_id]))
         if @conversation.save!
           render json: @conversation
         else
@@ -45,12 +40,12 @@ module API
       end
 
       def create
-        @conversation = Conversation.create(conversation_params)
-        @conversation.users = User.find_by(id: current_user.id)
-        if @conversation.save!
-          render json: @conversation, status: :created
+        conversation = Conversation.create(conversation_params)
+        conversation.users << current_user
+        if conversation.save!
+          render json: conversation, status: :created
         else
-          render json: @conversation.errors, status: :unprocessable_entity
+          render json: conversation.errors, status: :unprocessable_entity
         end
       end
 
@@ -73,11 +68,7 @@ module API
       private
 
       def find_conversation
-        @conversation = Conversation.find(params[:id])
-      end
-
-      def find_conversation_id
-        @conversation = Conversation.find(params[:conversation_id])
+        @conversation = Conversation.find_by(id: params[:id] || params[:conversation_id])
       end
 
       def conversation_params
