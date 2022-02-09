@@ -4,6 +4,7 @@ module API
   module V1
     # Controller class that is responsible for handling like requests.
     class LikesController < ApplicationController
+      before_action :find_like, only: %i[destroy]
       before_action :authorize_like!
 
       def index
@@ -26,7 +27,6 @@ module API
       end
 
       def destroy
-        @like = current_user.likes.find(params[:id])
         if @like.destroy
           render json: @like
         else
@@ -35,6 +35,10 @@ module API
       end
 
       private
+
+      def find_like
+        @like = current_user.likes.find(params[:id])
+      end
 
       def like_params
         params.permit(:user, :likeable_id, :likeable_type)

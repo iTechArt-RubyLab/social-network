@@ -8,7 +8,7 @@ RSpec.describe 'Likes', type: :request do
   let(:valid_post) { create(:post) }
 
   describe 'POST /api/v1/likes' do
-    describe 'create user subscription' do
+    describe 'create like' do
       before { post '/api/v1/likes', params: { likeable_id: valid_post.id, likeable_type: 'Post' }, headers: auth_headers }
 
       it 'has correct content-type' do
@@ -16,7 +16,7 @@ RSpec.describe 'Likes', type: :request do
       end
 
       context 'when user is authenticated' do
-        it 'creates user subscription' do
+        it 'creates like' do
           expect(response).to have_http_status(:created)
         end
 
@@ -24,34 +24,18 @@ RSpec.describe 'Likes', type: :request do
           expect(response).to have_http_status(:success)
         end
       end
-
-      context 'when user is not authenticated' do
-        before { post '/api/v1/likes', params: { likeable_id: valid_post.id, likeable_type: 'Post' } }
-
-        it 'have http status 401' do
-          expect(response).to have_http_status(:unauthorized)
-        end
-      end
     end
   end
 
   describe 'DELETE /api/v1/likes/:id' do
-    describe 'delete user like' do
-      let(:like) { create(:like, user: current_user, likeable_id: valid_post.id, likeable_type: 'Post') }
+    describe 'delete like' do
+      let(:like) { create(:like, user: current_user) }
 
       before { delete "/api/v1/likes/#{like.id}", headers: auth_headers }
 
       context 'when user is authenticated' do
         it 'returns http success' do
           expect(response).to have_http_status(:success)
-        end
-      end
-
-      context 'when user is not authenticated' do
-        before { delete "/api/v1/likes/#{like.id}" }
-
-        it 'have http status 401' do
-          expect(response).to have_http_status(:unauthorized)
         end
       end
     end
