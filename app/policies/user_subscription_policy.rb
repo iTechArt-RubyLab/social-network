@@ -10,6 +10,14 @@ class UserSubscriptionPolicy < ApplicationPolicy
     create? && (subscriber? || subscription?)
   end
 
+  def subscribers?
+    create?
+  end
+
+  def subscriptions?
+    create?
+  end
+
   private
 
   def subscriber?

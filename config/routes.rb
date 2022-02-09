@@ -14,6 +14,10 @@ Rails.application.routes.draw do
       end
       resources :users do
         resources :profiles, only: %i[index show update create]
+        get :subscribers, to: 'user_subscriptions#subscribers'
+        get :subscriptions, to: 'user_subscriptions#subscriptions'
+        post :subscribe, to: 'user_subscriptions#subscribe'
+        post :unsubscribe, to: 'user_subscriptions#unsubscribe'
       end
       resources :likes, only: %i[create destroy index]
       resources :messages, except: %i[index, show]
