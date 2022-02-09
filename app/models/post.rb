@@ -24,6 +24,8 @@ class Post < ApplicationRecord
 
   enum status: %i[public private], _suffix: true
 
+  default_scope { where(status: 'public') }
+
   BODY_MIN_CHARACTERS = 2
   BODY_MAX_CHARACTERS = 280
 
