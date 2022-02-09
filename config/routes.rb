@@ -11,10 +11,7 @@ Rails.application.routes.draw do
         put :profile, to: 'profiles#update'
       end
       resources :posts
-      resources :likes, only: %i[create destroy]
       resources :likes, only: %i[create destroy index]
-      resources :likes, only: %i[create destroy]
-      resources :profiles, only: %i[index show update create]
     end
   end
 end

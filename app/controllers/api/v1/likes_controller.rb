@@ -27,7 +27,6 @@ module API
       end
 
       def destroy
-        @like = current_user.likes.find(params[:id])
         if @like.destroy
           render json: @like
         else
@@ -44,6 +43,9 @@ module API
       def like_params
         params.permit(:user, :likeable_id, :likeable_type)
       end
+
+      def authorize_like!
+        authorize(@like || Like)
       end
     end
   end
