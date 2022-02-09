@@ -14,6 +14,7 @@
 #  index_tags_on_name  (name) UNIQUE
 #
 class Tag < ApplicationRecord
+  include SearchFlip::Model
   has_many :post_tags
   has_many :posts, through: :post_tags
 
@@ -21,4 +22,6 @@ class Tag < ApplicationRecord
   has_many :profiles, through: :user_interests
 
   validates_uniqueness_of :name, case_sensitive: false
+
+  notifies_index(TagIndex)
 end
