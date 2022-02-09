@@ -1,0 +1,15 @@
+Hi, <%= @user.profile.name %>
+Your weekly report is here! 🙈 Check it out! 🙄
+===============================================
+
+New subscriptions:
+<% @weekly_report[:subscriptions].each_with_index do |user, counter| %>
+  <%= "#{counter + 1} #{user.profile.surname} #{user.profile.name}" %>
+<% end %>
+
+New subscribers:
+<% @weekly_report[:subscribers].each_with_index do |user, counter| %>
+  <%= "#{counter + 1} #{user.profile.surname} #{user.profile.name}" %>
+<% end %>
+
+===============================================

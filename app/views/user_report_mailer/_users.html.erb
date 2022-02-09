@@ -1,0 +1,4 @@
+<% users.each_with_index do |user, counter| %>
+  <%= "#{counter + 1} #{user.profile.surname} #{user.profile.name}" %>
+  <br/>
+<% end %>
