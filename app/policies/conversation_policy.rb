@@ -1,17 +1,29 @@
 # frozen_string_literal: true
 
 # Profily policy
-class ProfilePolicy < ApplicationPolicy
+class ConversationPolicy < ApplicationPolicy
   def show?
-    (record.public? && record.user.active?) || owns_record?
+    record.users.include?(user)
   end
 
   def create?
     true
   end
 
+  def add_user?
+    show?
+  end
+
+  def delete_user?
+    show?
+  end
+
   def update?
-    owns_record?
+    show?
+  end
+
+  def destroy?
+    show?
   end
 
   # Profile policy scope

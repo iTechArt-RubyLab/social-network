@@ -8,7 +8,6 @@ module API
       before_action :set_post, except: %i[index create]
       before_action :set_tag, only: %i[remove_tag]
       before_action :authorize_post!
-      after_action :verify_authorized
 
       # GET /posts or /posts.json
       def index

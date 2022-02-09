@@ -2,7 +2,7 @@
 
 # class responsible for serializing profile data
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :body, :status, :created_at, :updated_at, :user_id, :tags
+  attributes :id, :body, :pictures, :status, :created_at, :updated_at, :user_id, :tags
   attribute :likes
 
   def likes
