@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+# class responsible for serializing profile data
+class PostSerializer < ActiveModel::Serializer
+  attributes :id, :body, :pictures, :status, :created_at, :updated_at, :user_id
+  attribute :likes
+
+  def likes
+    object.likes.count
+  end
+end

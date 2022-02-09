@@ -3,7 +3,7 @@
 # Profily policy
 class ProfilePolicy < ApplicationPolicy
   def show?
-    record.public? || owns_record?
+    (record.public? && record.user.active?) || owns_record?
   end
 
   def create?
