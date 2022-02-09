@@ -4,14 +4,9 @@ module API
   module V1
     # Search
     class SearchController < ActionController::API
-      include DeviseTokenAuth::Concerns::SetUserByToken
-      include Pundit
-
-      before_action :authenticate_user!
-
       def search_profile
-        @profiles = ProfileIndex.search(params[:query].to_s)
-        render json: @profiles.records
+        @profile = ProfileIndex.search(params[:query].to_s)
+        render json: @profile.records
       end
 
       def search_conversation

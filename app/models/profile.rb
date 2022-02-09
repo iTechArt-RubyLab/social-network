@@ -27,6 +27,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Profile < ApplicationRecord
+  include SearchFlip::Model
   has_one :picture, as: :picturable
   belongs_to :user
   has_many :user_interests
@@ -47,4 +48,6 @@ class Profile < ApplicationRecord
   def private?
     hidden
   end
+
+  notifies_index(ProfileIndex)
 end

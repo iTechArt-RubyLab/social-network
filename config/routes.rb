@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :profiles, only: %i[index show update create]
       resources :posts  do
         post '/add_tag', to: 'posts#add_tag'
         delete '/remove_tag/:id', to: 'posts#remove_tag'
+      end
       resources :tags, only: %i[index show create] do
         get '/posts', to: 'tags#posts'
       end
@@ -25,7 +25,6 @@ Rails.application.routes.draw do
         post 'add_user/:user_id', to: 'conversations#add_user'
         delete 'delete_user/:user_id', to: 'conversations#delete_user'
       end
-      resources :profiles, only: %i[index show update create]
       get '/search_profile', to: 'search#search_profile'
       get '/search_conversation', to: 'search#search_conversation'
       get '/search_tag', to: 'search#search_tag'
