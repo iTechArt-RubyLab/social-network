@@ -18,6 +18,14 @@ class PostPolicy < ApplicationPolicy
     update?
   end
 
+  def add_tag?
+    update?
+  end
+
+  def remove_tag?
+    update?
+  end
+
   # PostPolicy Scope
   class Scope < Scope
     def resolve

@@ -26,5 +26,8 @@ inherit_from:
 Layout/LineLength:
   Max: 150
 
+Metrics/MethodLength:
+  Max: 15
+
 RSpec/NestedGroups:
   MaxNesting: 6
