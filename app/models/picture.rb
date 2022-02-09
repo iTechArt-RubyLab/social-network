@@ -16,5 +16,5 @@
 #
 class Picture < ApplicationRecord
   belongs_to :picturable, polymorphic: true
-  has_many_attached :images
+  has_many_attached :images, service: :local
 end
