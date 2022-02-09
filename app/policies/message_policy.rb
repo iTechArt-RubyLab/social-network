@@ -3,7 +3,7 @@
 # MessagePolicy
 class MessagePolicy < ApplicationPolicy
   def create?
-    true
+    conversation_member?
   end
 
   def update?
@@ -12,5 +12,11 @@ class MessagePolicy < ApplicationPolicy
 
   def destroy?
     update?
+  end
+
+  private
+
+  def conversation_member?
+    record.conversation.users.include?(user)
   end
 end

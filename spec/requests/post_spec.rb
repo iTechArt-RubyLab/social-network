@@ -164,5 +164,80 @@ RSpec.describe 'posts', type: :request do
       end
     end
   end
+
+  describe 'POST /api/v1/posts/:id/add_tag' do
+    describe 'add tag to post' do
+      let(:current_user_post) { FactoryBot.create(:post, user_id: current_user.id) }
+      let(:tag) { FactoryBot.create(:tag) }
+
+      before { post "/api/v1/posts/#{current_user_post.id}/add_tag", params: { name: tag.name }, headers: auth_headers }
+
+      context 'when user is authenticated' do
+        it 'creates post tag' do
+          expect(response).to have_http_status(:created)
+        end
+
+        it 'returns http success' do
+          expect(response).to have_http_status(:success)
+        end
+
+        context 'with post that is not current user\'s post' do
+          let(:not_current_user_post) { FactoryBot.create(:post) }
+          let(:tag) { FactoryBot.create(:tag) }
+
+          it 'can\'t create post tag' do
+            # rubocop:disable Layout/LineLength
+            expect { post "/api/v1/posts/#{not_current_user_post.id}/add_tag", params: { name: tag.name }, headers: auth_headers }.to raise_error(Pundit::NotAuthorizedError)
+            # rubocop:enable Layout/LineLength
+          end
+        end
+      end
+
+      context 'when user is not authenticated' do
+        before { post "/api/v1/posts/#{current_user_post.id}/add_tag", params: { name: tag.name } }
+
+        it 'have http status 401' do
+          expect(response).to have_http_status(:unauthorized)
+        end
+      end
+    end
+  end
+
+  describe 'DELETE /api/v1/posts/:post_id/remove_tag/:id' do
+    describe 'delete tag from post' do
+      let(:current_user_post) { create :post, user: current_user }
+      let(:tag) { FactoryBot.create(:tag) }
+
+      before { delete "/api/v1/posts/#{current_user_post.id}/remove_tag/#{tag.id}", headers: auth_headers }
+
+      context 'when user is authenticated' do
+        it 'returns no content' do
+          expect(response).to have_http_status(:no_content)
+        end
+
+        it 'returns http success' do
+          expect(response).to have_http_status(:success)
+        end
+
+        context 'with post that is not current user\'s post' do
+          let(:not_current_user_post) { FactoryBot.create(:post) }
+
+          it 'can\'t delete post tag' do
+            # rubocop:disable Layout/LineLength
+            expect { delete "/api/v1/posts/#{not_current_user_post.id}/remove_tag/#{tag.id}", headers: auth_headers }.to raise_error(Pundit::NotAuthorizedError)
+            # rubocop:enable Layout/LineLength
+          end
+        end
+      end
+
+      context 'when user is not authenticated' do
+        before { delete "/api/v1/posts/#{current_user_post.id}/remove_tag/#{tag.id}" }
+
+        it 'have http status 401' do
+          expect(response).to have_http_status(:unauthorized)
+        end
+      end
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

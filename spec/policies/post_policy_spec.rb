@@ -22,8 +22,8 @@ RSpec.describe PostPolicy, type: :policy do
       end
     end
 
-    permissions :update?, :edit?, :destroy? do
-      it "is not allowed to update and delete the instance that doesn't belong to him" do
+    permissions :update?, :edit?, :destroy?, :add_tag?, :remove_tag? do
+      it "is not allowed to update and delete the instance and that tags that doesn't belong to him" do
         expect(policy).not_to permit(user, record)
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe PostPolicy, type: :policy do
     let(:user) { create :user }
     let(:record) { create :like, user: user }
 
-    permissions :update?, :edit?, :destroy? do
+    permissions :update?, :edit?, :destroy?, :add_tag?, :remove_tag? do
       it 'is allowed to update and delete the instance' do
         expect(policy).to permit(user, record)
       end

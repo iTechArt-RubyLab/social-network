@@ -38,6 +38,8 @@ class Profile < ApplicationRecord
   validates :phone, presence: true, uniqueness: true, length: { maximum: 15 }
   validates :about, presence: true
 
+  default_scope { where(hidden: false) }
+
   def public?
     !hidden
   end
