@@ -12,7 +12,6 @@
 FactoryBot.define do
   factory :conversation do
     name { Faker::Lorem.word }
-    users { create :user }
 
     trait :dialog do
       users { create_list :user, 2 }

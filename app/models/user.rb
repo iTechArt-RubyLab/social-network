@@ -54,7 +54,7 @@ class User < ApplicationRecord
   has_many :user_subscribers, class_name: 'UserSubscription', foreign_key: 'subscription_id'
   has_many :subscribers, through: :user_subscribers
   has_many :user_conversations
-  has_many :users, through: :user_conversations, dependent: :destroy
+  has_many :conversations, through: :user_conversations, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :status, presence: true, inclusion: { in: %w[active blocked] }

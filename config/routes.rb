@@ -16,6 +16,10 @@ Rails.application.routes.draw do
       resources :likes, only: %i[create destroy index]
       resources :messages, except: %i[index, show]
       resources :posts
+      resources :conversations do
+        post 'add_user/:user_id', to: 'conversations#add_user'
+        delete 'delete_user/:user_id', to: 'conversations#delete_user'
+      end
     end
   end
 end
