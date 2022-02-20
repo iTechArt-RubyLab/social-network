@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         post :subscribe, to: 'user_subscriptions#subscribe'
         post :unsubscribe, to: 'user_subscriptions#unsubscribe'
       end
+      
       resources :likes, only: %i[create destroy index]
       resources :messages, except: %i[index, show]
       resources :conversations do
