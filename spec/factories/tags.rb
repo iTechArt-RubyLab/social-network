@@ -15,6 +15,6 @@
 #
 FactoryBot.define do
   factory :tag do
-    name { Faker::Hobby.unique.activity }
+    name { Faker::Hobby.unique.activity.downcase.gsub(' ','_') }
   end
 end

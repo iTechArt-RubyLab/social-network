@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe 'Profiles', type: :request do
   let(:current_user) { FactoryBot.create(:user) }
   let(:auth_headers) { current_user.create_new_auth_token }
@@ -182,4 +183,80 @@ RSpec.describe 'Profiles', type: :request do
       end
     end
   end
+
+  describe 'POST /api/v1/profiles/:id/add_tag' do
+    describe 'add tag to profile' do
+      let(:current_user_profile) { FactoryBot.create(:profile, user_id: current_user.id) }
+      let(:tag) { FactoryBot.create(:tag) }
+
+      before { post "/api/v1/profiles/#{current_user_profile.id}/add_tag", params: { name: tag.name }, headers: auth_headers }
+
+      context 'when user is authenticated' do
+        it 'creates profile tag' do
+          expect(response).to have_http_status(:created)
+        end
+
+        it 'returns http success' do
+          expect(response).to have_http_status(:success)
+        end
+
+        context 'with profile that is not current user\'s profile' do
+          let(:not_current_user_profile) { FactoryBot.create(:profile) }
+          let(:tag) { FactoryBot.create(:tag) }
+
+          before { post "/api/v1/profiles/#{not_current_user_profile.id}/add_tag", params: { name: tag.name }, headers: auth_headers }
+
+          it 'can\'t create profile tag' do
+            expect(response).to have_http_status(:forbidden)
+          end
+        end
+      end
+
+      context 'when user is not authenticated' do
+        before { post "/api/v1/profiles/#{current_user_profile.id}/add_tag", params: { name: tag.name } }
+
+        it 'have http status 401' do
+          expect(response).to have_http_status(:unauthorized)
+        end
+      end
+    end
+  end
+
+  describe 'DELETE /api/v1/profiles/:profile_id/remove_tag/:name' do
+    describe 'delete tag from profile' do
+      let(:current_user_profile) { create :profile, user: current_user }
+      let(:tag) { FactoryBot.create(:tag) }
+
+      before { delete "/api/v1/profiles/#{current_user_profile.id}/remove_tag/#{tag.name}", headers: auth_headers }
+
+      context 'when user is authenticated' do
+        it 'returns no content' do
+          expect(response).to have_http_status(:no_content)
+        end
+
+        it 'returns http success' do
+          expect(response).to have_http_status(:success)
+        end
+
+        context 'with profile that is not current user\'s profile' do
+          let(:not_current_user_profile) { FactoryBot.create(:profile) }
+
+          before { delete "/api/v1/profiles/#{not_current_user_profile.id}/remove_tag/#{tag.name}", headers: auth_headers }
+
+          it 'can\'t delete profile tag' do
+            expect(response).to have_http_status(:forbidden)
+          end
+        end
+      end
+
+      context 'when user is not authenticated' do
+        before { delete "/api/v1/profiles/#{current_user_profile.id}/remove_tag/#{tag.name}" }
+
+        it 'have http status 401' do
+          expect(response).to have_http_status(:unauthorized)
+        end
+      end
+    end
+  end
 end
+# rubocop:enable Metrics/BlockLength
